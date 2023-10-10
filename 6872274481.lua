@@ -11492,9 +11492,9 @@ runFunction(function()
 	})
 end)
 
-local FourBigballs = {Enabled = false}
-FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "ParticalAnticheatDisabler",
+local FunniDisable = {Enabled = false}
+FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
+	["Name"] = "ParticleAnticheatDisabler",
 	["Function"] = function(callback)
 		if callback then 
 			task.spawn(function()
@@ -11504,7 +11504,7 @@ FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].Creat
 						["partPositions"] = {},
 						["partSize"] = Vector3.new(999999, .5, 9999.99999999999999999999)
 					})
-				until FourBigballs.Enabled
+				until FunniDisable.Enabled
 			end)
 		end
 	end
