@@ -11536,23 +11536,5 @@ runFunction(function()
 	})
 end)
 
-local FunniDisable = {Enabled = false}
-FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "PartialDisabler",
-        ["HoverText"] = Partical Disables Anticheat
-	["Function"] = function(callback)
-		if callback then 
-			task.spawn(function()
-				repeat
-					task.wait()
-					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("ScytheDash"):InvokeServer({
-						["partPositions"] = {},
-						["partSize"] = Vector3.new(2047, 1, 6)
-					})
-				until FunniDisable.Enabled
-			end)
-		end
-	end
-})
 
 
