@@ -11494,7 +11494,7 @@ end)
 
 local FunniDisable = {Enabled = false}
 FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "PartialAnticheatDisabler",
+	["Name"] = "PartialDisabler",
 	["Function"] = function(callback)
 		if callback then 
 			task.spawn(function()
