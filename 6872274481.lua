@@ -3196,49 +3196,6 @@ runFunction(function()
 	})
 end)
 
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-
---Properties:
-
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Frame.BackgroundTransparency = 1.000
-Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Frame.BorderSizePixel = 0
-Frame.Position = UDim2.new(0.0328467153, 0, 0.479591846, 0)
-Frame.Size = UDim2.new(0, 210, 0, 59)
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(-0.0639983416, 0, 3.12903237, 0)
-TextLabel.Size = UDim2.new(0, 232, 0, 61)
-TextLabel.Font = Enum.Font.Arcade
-TextLabel.Text = "Wizzware V5"
-TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextSize = 40.000
-
--- Scripts:
-
-local function QUPV_fake_script() -- TextLabel.LocalScript 
-	local script = Instance.new('LocalScript', TextLabel)
-
-	while true do
-		wait(1)
-		script.Parent.TextColor3 = Color3.new(math.random(),math.random(),math.random())
-		wait()  --Add a wait if necessary 
-		script.Parent.TextStrokeColor3 = Color3.new(math.random(),math.random(),math.random())
-	end 
-end
-coroutine.wrap(QUPV_fake_script)()
-
 
 runFunction(function()
 	local GrappleExploit = {Enabled = false}
@@ -11536,5 +11493,30 @@ runFunction(function()
 	})
 end)
 
+workspace.CurrentCamera.Viewmodel.ChildAdded:Connect(function(x)
+    if x and x:FindFirstChild("Handle") then
+        if string.find(x.Name:lower(), 'sword') then
+            x.Handle.Material = "ForceField"
+            x.Handle.MeshId = "rbxassetid://13471207377"
+            x.Handle.BrickColor = BrickColor.new("Hot pink")
+        end
+    end
+end)
 
-
+runfunction(function()
+   local HeatseakerModule = {Enabled = false}
+   HeatseakerModule = Guilibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+       Name = "Heatseeker",
+       HoverText = "Heatseeker with scythe?"
+       Function = function(callback)
+           if callback then
+               repeat
+                   game.Players.LocalPlayer.Character.Humandoid.Walkspeed = 80
+                   task.wait(0.13)
+                   game.Players.LocalPlayer.Character.Humandnoid.Walkspeed = 70
+                   task.wait(0.6)
+		until not HeatseakerModule.Enabled
+	end
+end
+})
+end)
