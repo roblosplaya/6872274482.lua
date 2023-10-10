@@ -11219,7 +11219,7 @@ InfernalKill = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsB
         until not InfernalKill["Enabled"]
     end
         end,
-        ["HoverText"] = "Infernal saber insta kill lolol"
+        ["HoverText"] = "Infernal saber insta kill lololol (patched)"
     })
 end)
 
@@ -11546,7 +11546,7 @@ FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].Creat
 					task.wait()
 					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SpiritBridgeEnter"):InvokeServer({
 						["partPositions"] = {},
-						["partSize"] = Vector3.new(999999, .5, 9999.99999999999999999999)
+						["partSize"] = Vector3.new(99999999999999999999999999999, .5, 9999.99999999999999999999)
 					})
 				until FunniDisable.Enabled
 			end)
