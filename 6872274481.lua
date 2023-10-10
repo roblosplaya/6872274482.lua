@@ -3196,6 +3196,50 @@ runFunction(function()
 	})
 end)
 
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BackgroundTransparency = 1.000
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.0328467153, 0, 0.479591846, 0)
+Frame.Size = UDim2.new(0, 210, 0, 59)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(-0.0639983416, 0, 3.12903237, 0)
+TextLabel.Size = UDim2.new(0, 232, 0, 61)
+TextLabel.Font = Enum.Font.Arcade
+TextLabel.Text = "Wizzware V5"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 40.000
+
+-- Scripts:
+
+local function QUPV_fake_script() -- TextLabel.LocalScript 
+	local script = Instance.new('LocalScript', TextLabel)
+
+	while true do
+		wait(1)
+		script.Parent.TextColor3 = Color3.new(math.random(),math.random(),math.random())
+		wait()  --Add a wait if necessary 
+		script.Parent.TextStrokeColor3 = Color3.new(math.random(),math.random(),math.random())
+	end 
+end
+coroutine.wrap(QUPV_fake_script)()
+
+
 runFunction(function()
 	local GrappleExploit = {Enabled = false}
 	local GrappleExploitMode = {Value = "Normal"}
