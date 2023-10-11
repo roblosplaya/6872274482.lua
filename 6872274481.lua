@@ -11493,20 +11493,3 @@ runFunction(function()
 	})
 end)
 
-runfunction(function()
-   local HeatseakerModule = {Enabled = false}
-   HeatseakerModule = Guilibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-       Name = "Heatseeker",
-       HoverText = "Heatseeker with scythe?"
-       Function = function(callback)
-           if callback then
-               repeat
-                   game.Players.LocalPlayer.Character.Humandoid.Walkspeed = 80
-                   task.wait(0.13)
-                   game.Players.LocalPlayer.Character.Humandnoid.Walkspeed = 70
-                   task.wait(0.6)
-		until not HeatseakerModule.Enabled
-	end
-end
-})
-end)
