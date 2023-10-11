@@ -11286,3 +11286,30 @@ FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].Creat
 	end
 })
 
+local nebulasky = {["Enabled"] = false}
+nebulasky = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
+	["Name"] = "CustomSky",
+	["Function"] = function(callback)
+		if callback then
+		local Lighting = game:GetService("Lighting")
+Lighting.Ambient = Color3.fromRGB(111, 43, 150)
+Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
+Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
+Lighting.OutdoorAmbient = Color3.fromRGB(139, 0, 0)
+Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
+Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
+
+local s = Instance.new("Sky")
+s.Name = "loltroll"
+s.SkyboxBk = "http://www.roblox.com/asset/?id=401664839"
+s.SkyboxDn = "http://www.roblox.com/asset/?id=401664862"
+s.SkyboxFt = "http://www.roblox.com/asset/?id=401664960"
+s.SkyboxLf = "http://www.roblox.com/asset/?id=401664881"
+s.SkyboxRt = "http://www.roblox.com/asset/?id=401664901"
+s.SkyboxUp = "http://www.roblox.com/asset/?id=401664936"
+s.Parent = Lighting
+			else
+		warningNotification("Vape", "Credit To Nebula", 3)
+		end
+	end
+})
