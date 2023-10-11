@@ -10503,7 +10503,7 @@ if lplr.UserId == 4943216782 then
 end
 
 runFunction(function()
-    local disabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+    local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
         HoverText = "Makes speed check have no braincells",
         Function = function(callback)
