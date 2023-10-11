@@ -7970,7 +7970,7 @@ runFunction(function()
 			local speedpotion = getItem("speed_potion")
 			if lplr.Character:GetAttribute("Health") <= (lplr.Character:GetAttribute("MaxHealth") - (100 - AutoConsumeHealth.Value)) then
 				autobankapple = true
-				local item = getItem("apple")
+				local item = getItem("apple" , "orange")
 				local pot = getItem("heal_splash_potion")
 				if (item or pot) and AutoConsumeDelay <= tick() then
 					if item then
