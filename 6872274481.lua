@@ -11251,7 +11251,7 @@ runFunction(function()
 end)
 
 local FunniDisable = {Enabled = false}
-FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
+FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
 	["Name"] = "PartialDisabler",
 	["Function"] = function(callback)
 		if callback then 
@@ -11269,7 +11269,7 @@ FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].Creat
 })
 
 local FourBigballs = {Enabled = false}
-FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].CreateOptionsButton({
+FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
 	["Name"] = "AnticheatDisabler",
 	["Function"] = function(callback)
 		if callback then 
@@ -11314,4 +11314,40 @@ s.Parent = Lighting
 	end
 })
 
-
+local top = function (a)
+    return debug.getconstants(bedwars.DamageIndicator)[a]
+end
+local enabled = {}
+local hithithit = {"Hit!","Whomp!","Slam!","Crash!","Slice!","Boom!","Pow!","Bam!","Smash!","Zap!","Poof!"}
+damageispog = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+    Name = "GoofyIndicator",
+    Function = function(callback)
+        if callback then
+            task.spawn(function()
+                if bedwarsStore.matchState == 0 then
+                    repeat task.wait() until bedwarsStore.matchState ~= 0
+                    damageispog.ToggleButton(false)
+                    task.wait(0.1)
+                    damageispog.ToggleButton(true)
+                    return;
+                end
+                enabled[1] = debug.getupvalue(bedwars["DamageIndicator"],10)
+                debug.setupvalue(bedwars["DamageIndicator"],10,{
+                    Create = function(self,coolhitthing,...)
+                        pcall(function()
+                            local a = coolhitthing.Parent
+                            for i,v in pairs(a.Parent.Parent.Parent:GetChildren()) do print(i,v ) end
+                            a.Text = hithithit[math.random(1,#hithithit)]
+                            a.TextColor3 =  Color3.fromHSV(tick()%5/5,1,1)
+                            a.FontFace = Font.new([[rbxasset://fonts/families/LuckiestGuy.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+                        end)
+                        return game:GetService("TweenService"):Create(coolhitthing,...)
+                    end
+                })
+            end)
+        else
+            debug.setupvalue(bedwars["DamageIndicator"],10,enabled[1])
+        end
+    end,
+    HoverText = "goofy indicator"
+})
