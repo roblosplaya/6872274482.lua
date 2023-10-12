@@ -11288,14 +11288,14 @@ FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["UtilityWindow"]["Api"].Creat
 
 local nebulasky = {["Enabled"] = false}
 nebulasky = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "CustomSky",
+	["Name"] = "WizzwareSky",
 	["Function"] = function(callback)
 		if callback then
 		local Lighting = game:GetService("Lighting")
-Lighting.Ambient = Color3.fromRGB(255,250,250)
+Lighting.Ambient = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
-Lighting.OutdoorAmbient = Color3.fromRGB(255,250,250)
+Lighting.OutdoorAmbient = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
 
