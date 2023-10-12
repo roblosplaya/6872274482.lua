@@ -11309,7 +11309,7 @@ s.SkyboxRt = "http://www.roblox.com/asset/?id=401664901"
 s.SkyboxUp = "http://www.roblox.com/asset/?id=401664936"
 s.Parent = Lighting
 			else
-		warningNotification("Vape", "Credit To Nebula", 3)
+		warningNotification("Wizzware", "Credit To Nebula", 3)
 		end
 	end
 })
