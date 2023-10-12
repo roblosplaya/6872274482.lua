@@ -11313,3 +11313,25 @@ s.Parent = Lighting
 		end
 	end
 })
+
+local anticheat = {["Enabled"] = false}
+    anticheat = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+        ["Name"] = "ParticalDisabler",
+        ["HoverText"] = "Credits to complex",
+        ["Function"] = function(callback)
+            if callback then
+                            print("Still working on this do not expect it to work.")
+                            local players = game:GetService("Players")
+                local player = players.LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+                local humanoid = character:WaitForChild("Humanoid")
+
+                for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+                 track:Stop()
+                            end
+            else
+                print("Disabled!")
+            end
+        end 
+    })
+
