@@ -11317,7 +11317,7 @@ s.Parent = Lighting
 local anticheat = {["Enabled"] = false}
     anticheat = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
         ["Name"] = "ParticalDisabler",
-        ["HoverText"] = "Credits to complex",
+        ["HoverText"] = "might not work idk",
         ["Function"] = function(callback)
             if callback then
                             print("Still working on this do not expect it to work.")
