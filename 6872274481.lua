@@ -11309,29 +11309,9 @@ s.SkyboxRt = "http://www.roblox.com/asset/?id=401664901"
 s.SkyboxUp = "http://www.roblox.com/asset/?id=401664936"
 s.Parent = Lighting
 			else
-		warningNotification("Wizzware", "Credit To Nebula", 3)
+		warningNotification("WizzwareSky", "Credit To Nebula <3", 3)
 		end
 	end
 })
 
-local anticheat = {["Enabled"] = false}
-    anticheat = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
-        ["Name"] = "ParticalDisabler",
-        ["HoverText"] = "might not work idk",
-        ["Function"] = function(callback)
-            if callback then
-                            print("Still working on this do not expect it to work.")
-                            local players = game:GetService("Players")
-                local player = players.LocalPlayer
-                local character = player.Character or player.CharacterAdded:Wait()
-                local humanoid = character:WaitForChild("Humanoid")
-
-                for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
-                 track:Stop()
-                            end
-            else
-                print("Disabled!")
-            end
-        end 
-    })
 
