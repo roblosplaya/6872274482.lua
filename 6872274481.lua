@@ -7267,11 +7267,6 @@ runFunction(function()
 		[3] = "iron_sword",
 		[4] = "diamond_sword",
 		[5] = "emerald_sword"
-                [6] = "wood_scythe",
-		[7] = "stone_scythe",
-		[8] = "iron_scythe",
-		[9] = "diamond_scythe",
-                [10] = "mythic_scythe",
 	}
 
 	local axes = {
