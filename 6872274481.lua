@@ -11295,7 +11295,7 @@ nebulasky = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOpt
 Lighting.Ambient = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
-Lighting.OutdoorAmbient = Color3.fromRGB(255,250,250)
+Lighting.OutdoorAmbient = Color3.fromRGB(186,248,248)
 Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
 Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
 
