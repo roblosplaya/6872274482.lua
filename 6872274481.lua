@@ -3510,6 +3510,7 @@ runFunction(function()
 		Default = true
 	})
 end)
+
 local killauraNearPlayer
 runFunction(function()
 	local killauraboxes = {}
@@ -3535,7 +3536,6 @@ runFunction(function()
 	local killauraanimationtween = {Enabled = false}
 	local killauracolor = {Value = 0.44}
 	local killauranovape = {Enabled = false}
-	local killaurascythe = {Enabled = true}
 	local killauratargethighlight = {Enabled = false}
 	local killaurarangecircle = {Enabled = false}
 	local killaurarangecirclepart
@@ -3547,7 +3547,6 @@ runFunction(function()
     local killauraplaying = false
     local oldViewmodelAnimation = function() end
     local oldPlaySound = function() end
-
     local originalArmC0 = nil
 	local killauracurrentanim
 	local animationdelay = tick()
@@ -3584,7 +3583,7 @@ runFunction(function()
 	}
 
 	local killaurasortmethods = {
-		Switch = function(a, b)
+		Distance = function(a, b)
 			return (a.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position).Magnitude < (b.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position).Magnitude
 		end,
 		Health = function(a, b) 
@@ -3613,38 +3612,7 @@ runFunction(function()
 			{CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
 			{CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
 		},
-		Funny = {
-			{CFrame = CFrame.new(0.8, 10.7, 3.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
-            {CFrame = CFrame.new(5.7, -1.7, 5.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
-            {CFrame = CFrame.new(2.95, -5.06, -6.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
-		},
-		["Lunar Old"] = {
-			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		["Lunar New"] = {
-			{CFrame = CFrame.new(0.86, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.17},
-			{CFrame = CFrame.new(0.73, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.17}
-		},
-		["Lunar Fast"] = {
-			{CFrame = CFrame.new(0.95, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.40, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		["Liquid Bounce"] = {
-			{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(90), math.rad(-90)), Time = 0.45},
-    		{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.45},
-			{CFrame = CFrame.new(-0.01, -0.3, 0.4) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.32}
-		},
-		["Auto Block"] = {
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(80), math.rad(65)), Time = 0.15},
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(110), math.rad(65)), Time = 0.15},
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(65), math.rad(65)), Time = 0.15}
-		},
-		Meteor = {
-			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		Switch = {
+		Latest = {
 			{CFrame = CFrame.new(0.69, -0.7, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-51)), Time = 0.1},
 			{CFrame = CFrame.new(0.16, -1.16, 0.5) * CFrame.Angles(math.rad(-179), math.rad(54), math.rad(33)), Time = 0.1}
 		},
@@ -3717,7 +3685,7 @@ runFunction(function()
 	end
 
     Killaura = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "KillAura",
+        Name = "Killaura",
         Function = function(callback)
             if callback then
 				if killauraaimcirclepart then killauraaimcirclepart.Parent = gameCamera end
@@ -3873,10 +3841,8 @@ runFunction(function()
 											if not killauraswing.Enabled then 
 												bedwars.SwordController:playSwordEffect(swordmeta, false)
 											end
-											if not killaurascythe.Enabled then
-												if swordmeta.displayName:find("Scythe") then 
-													bedwars.ScytheController:playLocalAnimation()
-												end
+											if swordmeta.displayName:find(" Scythe") then 
+												bedwars.ScytheController:playLocalAnimation()
 											end
 										end
 									end
@@ -3969,14 +3935,11 @@ runFunction(function()
                 end)
             end
         end,
-        HoverText = "Attack players around you\nwithout aiming at them.",
-        ExtraText = function()
-            return killaurasortmethod.Value
-        end
+        HoverText = "Attack players around you\nwithout aiming at them."
     })
     killauratargetframe = Killaura.CreateTargetWindow({})
-	local sortmethods = {"Switch"}
-	for i,v in pairs(killaurasortmethods) do if i ~= "Switch" then table.insert(sortmethods, i) end end
+	local sortmethods = {"Distance"}
+	for i,v in pairs(killaurasortmethods) do if i ~= "Distance" then table.insert(sortmethods, i) end end
 	killaurasortmethod = Killaura.CreateDropdown({
 		Name = "Sort",
 		Function = function() end,
@@ -3985,13 +3948,13 @@ runFunction(function()
     killaurarange = Killaura.CreateSlider({
         Name = "Attack range",
         Min = 1,
-        Max = 22,
+        Max = 18,
         Function = function(val) 
 			if killaurarangecirclepart then 
 				killaurarangecirclepart.Size = Vector3.new(val * 0.7, 0.01, val * 0.7)
 			end
 		end, 
-        Default = 22
+        Default = 18
     })
     killauraangle = Killaura.CreateSlider({
         Name = "Max angle",
@@ -4201,19 +4164,12 @@ runFunction(function()
 				particle.Size = NumberSequence.new(0.3)
 				particle.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(67, 10, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 98, 255))})
 				particle.Parent = killauraparticlepart
-				particle.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(killauracolorp.Hue, killauracolorp.Sat, killauracolorp.Value)), ColorSequenceKeypoint.new(1, Color3.fromHSV(killauracolorp.Hue, killauracolorp.Sat, killauracolorp.Value))})
 			else
 				if killauraparticlepart then 
 					killauraparticlepart:Destroy()
 					killauraparticlepart = nil
 				end
 			end
-		end
-	})
-	killauracolorp = Killaura.CreateColorSlider({
-		Name = "Crit Particle Color",
-		Function = function(h, s, v)
-			killauraparticlepart.ParticleEmitter.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(h, s, v)), ColorSequenceKeypoint.new(1, Color3.fromHSV(h, s, v))})
 		end
 	})
     killaurasound = Killaura.CreateToggle({
@@ -4235,7 +4191,6 @@ runFunction(function()
         Name = "Custom Animation",
         Function = function(callback)
 			if killauraanimationtween.Object then killauraanimationtween.Object.Visible = callback end
-			if killaurascythe.Object then killaurascythe.Object.Visible = callback end
 		end,
 		HoverText = "Uses a custom animation for swinging"
     })
@@ -4244,39 +4199,23 @@ runFunction(function()
 		Function = function() end,
 		HoverText = "Disable's the in and out ease"
 	})
-	killaurascythe = Killaura.CreateToggle({
-		Name = "Scythe Animation",
-		Default = true,
-		HoverText = "Uses a custom animation for swinging using the Scythe",
-		Function = function() end
-	})
 	killauraanimationtween.Object.Visible = false
-	killaurascythe.Object.Visible = false
 	killaurasync = Killaura.CreateToggle({
         Name = "Synced Animation",
         Function = function() end,
 		HoverText = "Times animation with hit attempt"
     })
-	if not IgnoreVP then
-		killauranovape = Killaura.CreateToggle({
-			Name = 'No Vape',
-			Function = function() end,
-			HoverText = 'no hit vape user'
-		})
-		killauranovape.Object.Visible = false
-		task.spawn(function()
-			repeat task.wait() until WhitelistFunctions.Loaded
-			killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
-		end)
-	end
+	killauranovape = Killaura.CreateToggle({
+		Name = "No Vape",
+		Function = function() end,
+		HoverText = "no hit vape user"
+	})
+	killauranovape.Object.Visible = false
+	task.spawn(function()
+		repeat task.wait() until WhitelistFunctions.Loaded
+		killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
+	end)
 end)
-
-local function inrange()
-	local inranger = AllNearPosition(22, 10)[1]
-	if inranger then
-		return true
-	end
-end
 
 local LongJump = {Enabled = false}
 runFunction(function()
