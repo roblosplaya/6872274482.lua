@@ -3536,6 +3536,7 @@ runFunction(function()
 	local killauraanimationtween = {Enabled = false}
 	local killauracolor = {Value = 0.44}
 	local killauranovape = {Enabled = false}
+	local killaurascythe = {Enabled = true}
 	local killauratargethighlight = {Enabled = false}
 	local killaurarangecircle = {Enabled = false}
 	local killaurarangecirclepart
@@ -3547,6 +3548,7 @@ runFunction(function()
     local killauraplaying = false
     local oldViewmodelAnimation = function() end
     local oldPlaySound = function() end
+
     local originalArmC0 = nil
 	local killauracurrentanim
 	local animationdelay = tick()
@@ -3612,7 +3614,38 @@ runFunction(function()
 			{CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
 			{CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
 		},
-		Latest = {
+		Funny = {
+			{CFrame = CFrame.new(0.8, 10.7, 3.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
+            {CFrame = CFrame.new(5.7, -1.7, 5.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
+            {CFrame = CFrame.new(2.95, -5.06, -6.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
+		},
+		["Lunar Old"] = {
+			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
+			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
+		},
+		["Lunar New"] = {
+			{CFrame = CFrame.new(0.86, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.17},
+			{CFrame = CFrame.new(0.73, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.17}
+		},
+		["Lunar Fast"] = {
+			{CFrame = CFrame.new(0.95, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
+			{CFrame = CFrame.new(0.40, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
+		},
+		["Liquid Bounce"] = {
+			{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(90), math.rad(-90)), Time = 0.45},
+    		{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.45},
+			{CFrame = CFrame.new(-0.01, -0.3, 0.4) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.32}
+		},
+		["Auto Block"] = {
+			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(80), math.rad(65)), Time = 0.15},
+			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(110), math.rad(65)), Time = 0.15},
+			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(65), math.rad(65)), Time = 0.15}
+		},
+		Meteor = {
+			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
+			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
+		},
+		Switch = {
 			{CFrame = CFrame.new(0.69, -0.7, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-51)), Time = 0.1},
 			{CFrame = CFrame.new(0.16, -1.16, 0.5) * CFrame.Angles(math.rad(-179), math.rad(54), math.rad(33)), Time = 0.1}
 		},
@@ -3841,8 +3874,10 @@ runFunction(function()
 											if not killauraswing.Enabled then 
 												bedwars.SwordController:playSwordEffect(swordmeta, false)
 											end
-											if swordmeta.displayName:find(" Scythe") then 
-												bedwars.ScytheController:playLocalAnimation()
+											if not killaurascythe.Enabled then
+												if swordmeta.displayName:find("Scythe") then 
+													bedwars.ScytheController:playLocalAnimation()
+												end
 											end
 										end
 									end
@@ -3948,13 +3983,13 @@ runFunction(function()
     killaurarange = Killaura.CreateSlider({
         Name = "Attack range",
         Min = 1,
-        Max = 18,
+        Max = 22,
         Function = function(val) 
 			if killaurarangecirclepart then 
 				killaurarangecirclepart.Size = Vector3.new(val * 0.7, 0.01, val * 0.7)
 			end
 		end, 
-        Default = 18
+        Default = 22
     })
     killauraangle = Killaura.CreateSlider({
         Name = "Max angle",
@@ -4187,6 +4222,12 @@ runFunction(function()
         Function = function() end,
 		HoverText = "Only attacks when your sword is held."
     })
+	killaurascythe = Killaura.CreateToggle({
+		Name = "Scythe Animation",
+		Default = true,
+		HoverText = "Uses a custom animation for swinging using the Scythe",
+		Function = function() end
+	})
     killauraanimation = Killaura.CreateToggle({
         Name = "Custom Animation",
         Function = function(callback)
@@ -4205,18 +4246,19 @@ runFunction(function()
         Function = function() end,
 		HoverText = "Times animation with hit attempt"
     })
-	killauranovape = Killaura.CreateToggle({
-		Name = "No Vape",
-		Function = function() end,
-		HoverText = "no hit vape user"
-	})
-	killauranovape.Object.Visible = false
-	task.spawn(function()
-		repeat task.wait() until WhitelistFunctions.Loaded
-		killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
-	end)
+	if not IgnoreVP then
+		killauranovape = Killaura.CreateToggle({
+			Name = 'No Vape',
+			Function = function() end,
+			HoverText = 'no hit vape user'
+		})
+		killauranovape.Object.Visible = false
+		task.spawn(function()
+			repeat task.wait() until WhitelistFunctions.Loaded
+			killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
+		end)
+	end
 end)
-
 local LongJump = {Enabled = false}
 runFunction(function()
 	local damagetimer = 0
