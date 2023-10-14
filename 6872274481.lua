@@ -3585,7 +3585,7 @@ runFunction(function()
 	}
 
 	local killaurasortmethods = {
-		Distance = function(a, b)
+		Switch = function(a, b)
 			return (a.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position).Magnitude < (b.RootPart.Position - entityLibrary.character.HumanoidRootPart.Position).Magnitude
 		end,
 		Health = function(a, b) 
@@ -3718,7 +3718,7 @@ runFunction(function()
 	end
 
     Killaura = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "Killaura",
+        Name = "KillAura",
         Function = function(callback)
             if callback then
 				if killauraaimcirclepart then killauraaimcirclepart.Parent = gameCamera end
@@ -3970,11 +3970,14 @@ runFunction(function()
                 end)
             end
         end,
-        HoverText = "Attack players around you\nwithout aiming at them."
+        HoverText = "Attack players around you\nwithout aiming at them.",
+        ExtraText = function()
+            return killaurasortmethod.Value
+        end
     })
     killauratargetframe = Killaura.CreateTargetWindow({})
-	local sortmethods = {"Distance"}
-	for i,v in pairs(killaurasortmethods) do if i ~= "Distance" then table.insert(sortmethods, i) end end
+	local sortmethods = {"Switch"}
+	for i,v in pairs(killaurasortmethods) do if i ~= "Switch" then table.insert(sortmethods, i) end end
 	killaurasortmethod = Killaura.CreateDropdown({
 		Name = "Sort",
 		Function = function() end,
@@ -4199,12 +4202,19 @@ runFunction(function()
 				particle.Size = NumberSequence.new(0.3)
 				particle.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromRGB(67, 10, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 98, 255))})
 				particle.Parent = killauraparticlepart
+				particle.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(killauracolorp.Hue, killauracolorp.Sat, killauracolorp.Value)), ColorSequenceKeypoint.new(1, Color3.fromHSV(killauracolorp.Hue, killauracolorp.Sat, killauracolorp.Value))})
 			else
 				if killauraparticlepart then 
 					killauraparticlepart:Destroy()
 					killauraparticlepart = nil
 				end
 			end
+		end
+	})
+	killauracolorp = Killaura.CreateColorSlider({
+		Name = "Crit Particle Color",
+		Function = function(h, s, v)
+			killauraparticlepart.ParticleEmitter.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.fromHSV(h, s, v)), ColorSequenceKeypoint.new(1, Color3.fromHSV(h, s, v))})
 		end
 	})
     killaurasound = Killaura.CreateToggle({
@@ -4222,16 +4232,11 @@ runFunction(function()
         Function = function() end,
 		HoverText = "Only attacks when your sword is held."
     })
-	killaurascythe = Killaura.CreateToggle({
-		Name = "Scythe Animation",
-		Default = true,
-		HoverText = "Uses a custom animation for swinging using the Scythe",
-		Function = function() end
-	})
     killauraanimation = Killaura.CreateToggle({
         Name = "Custom Animation",
         Function = function(callback)
 			if killauraanimationtween.Object then killauraanimationtween.Object.Visible = callback end
+			if killaurascythe.Object then killaurascythe.Object.Visible = callback end
 		end,
 		HoverText = "Uses a custom animation for swinging"
     })
@@ -4240,7 +4245,14 @@ runFunction(function()
 		Function = function() end,
 		HoverText = "Disable's the in and out ease"
 	})
+	killaurascythe = Killaura.CreateToggle({
+		Name = "Scythe Animation",
+		Default = true,
+		HoverText = "Uses a custom animation for swinging using the Scythe",
+		Function = function() end
+	})
 	killauraanimationtween.Object.Visible = false
+	killaurascythe.Object.Visible = false
 	killaurasync = Killaura.CreateToggle({
         Name = "Synced Animation",
         Function = function() end,
@@ -4259,6 +4271,7 @@ runFunction(function()
 		end)
 	end
 end)
+
 
 local LongJump = {Enabled = false}
 runFunction(function()
