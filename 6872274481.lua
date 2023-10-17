@@ -11209,23 +11209,64 @@ runFunction(function()
 	})
 end)
 
-local FunniDisable = {Enabled = false}
-FunniDisable = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "PartialDisabler",
-	["Function"] = function(callback)
-		if callback then 
-			task.spawn(function()
-				repeat
-					task.wait()
-					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SpiritBridgeEnter"):InvokeServer({
-						["partPositions"] = {},
-						["partSize"] = Vector3.new(999999, .5, 9999.99999999999999999999)
-					})
-				until FunniDisable.Enabled
-			end)
-		end
-	end
-})
+runFunction(function()
+    local AnticheatBypass = {Enabled = false}
+	local AnticheatBypassMode = {Value = 'LookVector'}
+    AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved['BlatantWindow'].Api.CreateOptionsButton({
+        Name = "PartialDisabler",
+		HoverText = 'Partially Bypasses Anticheat',
+        Function = function(callback)
+            if callback then 
+				task.spawn(function()
+					repeat task.wait()
+						local scytheitem = nil
+						for _, scythe in next, scythes do
+							scytheitem = getItemNear(scythe)
+							if scytheitem then
+								break
+							end
+						end
+						local scytheitem1 = getItemNear'iron_scythe' -- not working in the table
+						if scytheitem or scytheitem1 and lplr.Character.HandInvItem.Value == scytheitem.tool or lplr.Character.HandInvItem.Value == scytheitem1.tool then
+							if AnticheatBypassMode.Value == 'LookVector' then
+								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entityLunar.character.HumanoidRootPart.CFrame.LookVector})
+							elseif AnticheatBypassMode.Value == 'MoveDirection' then
+								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entityLunar.character.HumanoidRootPart.CFrame.MoveDirection})
+							else
+								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = vec3(9e9, 9e9, 9e9)})
+							end
+							if GuiLibrary.ObjectsThatCanBeSaved.HeadlessOptionsButton.Api.Enabled then
+								if entityLunar.isAlive and entityLunar.character.HumanoidRootPart.Transparency ~= 0 then
+									bedwarsStore.scythe = tick() + 2
+								end
+							else
+								if entityLunar.isAlive and entityLunar.character.Head.Transparency ~= 0 then
+									bedwarsStore.scythe = tick() + 2
+								end
+							end
+						end
+					until not AnticheatBypass.Enabled
+				end)
+            end
+        end,
+		Default = false,
+        ExtraText = function()
+            return AnticheatBypassMode.Value
+        end
+    })
+	AnticheatBypassMode = AnticheatBypass.CreateDropdown({
+		Name = 'Mode',
+		List = {
+			'LookVector',
+			'MoveDirection',
+			'Vector'
+		},
+		HoverText = 'Direction Speed Mode',
+		Value = 'Normal',
+		Function = function() end
+	})
+end)
+
 
 local FourBigballs = {Enabled = false}
 FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
