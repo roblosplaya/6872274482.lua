@@ -11268,24 +11268,6 @@ runFunction(function()
 end)
 
 
-local FourBigballs = {Enabled = false}
-FourBigballs = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "AnticheatDisabler",
-	["Function"] = function(callback)
-		if callback then 
-			task.spawn(function()
-				repeat
-					task.wait()
-					game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SpiritBridgeEnter"):InvokeServer({
-						["partPositions"] = {},
-						["partSize"] = Vector3.new(999999, .5, 9999.99999999999999999999)
-					})
-				until FourBigballs.Enabled
-			end)
-		end
-	end
-})
-
 local nebulasky = {["Enabled"] = false}
 nebulasky = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
 	["Name"] = "WizzwareSky",
