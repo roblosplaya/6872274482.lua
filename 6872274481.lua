@@ -11329,76 +11329,9 @@ runFunction(function()
 	})
 end)
 
-
-local nebulasky = {["Enabled"] = false}
-nebulasky = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
-	["Name"] = "WizzwareSky",
-	["Function"] = function(callback)
-		if callback then
-		local Lighting = game:GetService("Lighting")
-Lighting.Ambient = Color3.fromRGB(139, 0, 0)
-Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
-Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
-Lighting.OutdoorAmbient = Color3.fromRGB(186,248,248)
-Lighting.ColorShift_Bottom = Color3.fromRGB(139, 0, 0)
-Lighting.ColorShift_Top = Color3.fromRGB(139, 0, 0)
-
-local s = Instance.new("Sky")
-s.Name = "loltroll"
-s.SkyboxBk = "http://www.roblox.com/asset/?id=401664839"
-s.SkyboxDn = "http://www.roblox.com/asset/?id=401664862"
-s.SkyboxFt = "http://www.roblox.com/asset/?id=401664960"
-s.SkyboxLf = "http://www.roblox.com/asset/?id=401664881"
-s.SkyboxRt = "http://www.roblox.com/asset/?id=401664901"
-s.SkyboxUp = "http://www.roblox.com/asset/?id=401664936"
-s.Parent = Lighting
-			else
-		warningNotification("WizzwareSky", "Credit To Nebula <3", 3)
-		end
-	end
-})
-
-local top = function (a)
-    return debug.getconstants(bedwars.DamageIndicator)[a]
-end
-local enabled = {}
-local hithithit = {"Hit!","Whomp!","Slam!","Crash!","Slice!","Boom!","Pow!","Bam!","Smash!","Zap!","Poof!"}
-damageispog = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
-    Name = "GoofyIndicator",
-    Function = function(callback)
-        if callback then
-            task.spawn(function()
-                if bedwarsStore.matchState == 0 then
-                    repeat task.wait() until bedwarsStore.matchState ~= 0
-                    damageispog.ToggleButton(false)
-                    task.wait(0.1)
-                    damageispog.ToggleButton(true)
-                    return;
-                end
-                enabled[1] = debug.getupvalue(bedwars["DamageIndicator"],10)
-                debug.setupvalue(bedwars["DamageIndicator"],10,{
-                    Create = function(self,coolhitthing,...)
-                        pcall(function()
-                            local a = coolhitthing.Parent
-                            for i,v in pairs(a.Parent.Parent.Parent:GetChildren()) do print(i,v ) end
-                            a.Text = hithithit[math.random(1,#hithithit)]
-                            a.TextColor3 =  Color3.fromHSV(tick()%5/5,1,1)
-                            a.FontFace = Font.new([[rbxasset://fonts/families/LuckiestGuy.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-                        end)
-                        return game:GetService("TweenService"):Create(coolhitthing,...)
-                    end
-                })
-            end)
-        else
-            debug.setupvalue(bedwars["DamageIndicator"],10,enabled[1])
-        end
-    end,
-    HoverText = "goofy indicator"
-})
-
 runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "DisablerIDK",
+        Name = "SemiDisabler",
         Function = function(callback)
             if callback then
                 local ReplicatedStorage = game:GetService("ReplicatedStorage")
