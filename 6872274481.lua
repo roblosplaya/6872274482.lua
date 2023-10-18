@@ -11438,3 +11438,33 @@ runFunction(function()
         end
     })
 end)
+
+runFunction(function()
+    local performed = false
+    InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "InfiniteJump",
+        Function = function(callback)
+            if callback then
+                -- services
+                game:GetService("UserInputService").JumpRequest:Connect(function()
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+                end)
+            end
+        end
+    })
+end)
+
+runFunction(function()
+local vclip = {Enabled = false}
+vclip = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
+Name = "TPDown",
+Function = function(callback)
+if callback then
+  if entityLibrary.isAlive then
+	entityLibrary.character.HumanoidRootPart.CFrame += Vector3.new(0, -7, 0)
+	 vclip["ToggleButton"](false)
+  end
+end
+end
+})
+end)
