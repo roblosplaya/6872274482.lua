@@ -11395,3 +11395,46 @@ damageispog = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsBut
     end,
     HoverText = "goofy indicator"
 })
+
+runFunction(function()
+    disabledxd = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "DisablerIDK",
+        Function = function(callback)
+            if callback then
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                local Players = game:GetService("Players")
+                local RunService = game:GetService("RunService")
+                local ScytheDash = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules")["@rbxts"].net.out._NetManaged.ScytheDash
+
+                local function onRenderStepped()
+                    local localPlayer = Players.LocalPlayer
+                    if not localPlayer then
+                        return
+                    end
+                    local character = localPlayer.Character
+                    if not character then
+                        return
+                    end
+                    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        local lookVector = humanoidRootPart.CFrame.LookVector * 10000
+                        ScytheDash:FireServer({
+                            direction = lookVector
+                        })
+                    end
+                end
+                local lastHeartbeat = tick()
+                local function onHeartbeat()
+                    local currentTime = tick()
+                    local elapsedSeconds = currentTime - lastHeartbeat
+                    if elapsedSeconds > 999 then
+                        lastHeartbeat = currentTime
+                    end
+                end
+
+                RunService.RenderStepped:Connect(onRenderStepped)
+                RunService.Heartbeat:Connect(onHeartbeat)
+            end
+        end
+    })
+end)
