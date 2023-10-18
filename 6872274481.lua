@@ -10672,41 +10672,103 @@ coroutine.wrap(IADGT_fake_script)()
 
 
 runFunction(function()
-    local AntiDeath = {Enabled = false}
-    local AntiDeathLow = {Value = 50}
-    local AntiDeathHigh = {Value = 35}
-    local enabledAlready = false
-    AntiDeath = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "AntiDeath",
-        HoverText = "Automatically prevents you from dying (inf fly up)",
-        Function = function(callback)
-            if callback then
-                task.spawn(function()
-                    repeat task.wait()
-                        if game:GetService("Players").LocalPlayer.Character.Humanoid.Health < AntiDeathLow.Value then
-                            game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(0,AntiDeathHigh.Value,0)
-                        end
-                    until not AntiDeath.Enabled
-                end)
-            end
+	local AntiDeath = {Enabled = false}
+	local AntiDeathMode = {Value = 'Velocity'}
+	local AntiDeathHealth = {Value = 50}
+	local AntiDeathVelo = {Value = 650}
+	local AntiDeathAuto = {Enabled = false}
+	local AntiDeathNot = {Enabled = true}
+	local function gethealth()
+		return entityLunar.character.Humanoid.Health
+	end
+	local boosted1, infon, sentmsg = false, false, false
+	AntiDeath = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"]["CreateOptionsButton"]({
+		Name = 'AntiDeath',
+        HoverText = 'Prevents you from dying',
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat task.wait()
+						if entityLunar.isAlive then
+							if gethealth() < AntiDeathHealth.Value and gethealth() > 0 then
+								if not boosted1 then
+									if AntiDeathMode.Value == 'Velocity' then
+										entityLunar.character.HumanoidRootPart.Velocity += vec3(0, AntiDeathVelo.Value, 0)
+									else
+										if not GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.Enabled then
+											GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(true)
+											infon = true
+										end
+									end
+								end
+								boosted1 = true
+								if not sentmsg then
+									warningNotification('AntiDeath', 'Succesfully performed action.', 3)
+								end
+								sentmsg = true
+							elseif gethealth() >= AntiDeathHealth.Value then
+								if infon and AntiDeathAuto.Enabled then
+									GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(false)
+								end
+								boosted1, infon, sentmsg = false, false, false
+							end
+						end
+					until not AntiDeath.Enabled
+				end)
+			else
+				boosted1, infon, sentmsg = false, false, false
+			end
+		end,
+        Default = false,
+        ExtraText = function()
+            return AntiDeathMode.Value
         end
-    })
-    AntiDeathLow = AntiDeath.CreateSlider({
-        Name = "Health Trigger",
-        Min = 10,
-        Max = 100,
-        Function = function() end,
-        Default = 50
-    })
-    AntiDeathHigh = AntiDeath.CreateSlider({
-        Name = "Boost",
-        Min = 1,
-        Max = 50,
-        Function = function() end,
-        Default = 35
-    })
+	})
+	AntiDeathMode = AntiDeath.CreateDropdown({
+		Name = 'Mode',
+		List = {
+			'Velocity',
+			'Infinite'
+		},
+		HoverText = 'Mode to prevent death',
+		Value = 'Velocity',
+		Function = function(val)
+			if val == 'Velocity' then
+				AntiDeathVelo.Object.Visible = true
+			elseif val == 'Infinite' then
+				AntiDeathVelo.Object.Visible = false
+			end
+		end
+	})
+	AntiDeathHealth = AntiDeath.CreateSlider({
+		Name = 'Health',
+		Min = 10,
+		Max = 99,
+		HoverText = 'Health at which AntiDeath will perform its actions',
+		Function = function() end,
+		Default = 50
+	})
+	AntiDeathVelo = AntiDeath.CreateSlider({
+		Name = 'Velocity',
+		Min = 100,
+		Max = 650,
+		HoverText = 'Velocity Boost',
+		Function = function() end,
+		Default = 650
+	})
+	AntiDeathAuto = AntiDeath.CreateToggle({
+		Name = 'Auto Disable',
+		Default = false,
+		HoverText = 'Automatically disables InfinteFly\nafter healing',
+		Function = function() end
+	})
+	AntiDeathNot = AntiDeath.CreateToggle({
+		Name = 'Notification',
+		Default = true,
+		HoverText = 'Notifies you when AntiDeath actioned',
+		Function = function() end
+	})
 end)
-
 runFunction(function()
 				local HotbarCustomization = {Enabled = false}
 				local InvSlotCornerRadius = {Value = 8}
