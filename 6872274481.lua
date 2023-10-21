@@ -11294,22 +11294,15 @@ end
 end)
 
 runFunction(function()
-    local howlexploit = {Enabled = false}
-    howlexploit = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-        Name = "howl exploit",
+    local MultiAura = {Enabled = false}
+    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "MultiAura",
         Function = function(callback)
             if callback then
-                repeat
-                    task.wait()
-                    local args = {
-                        [1] = {
-                            ["player"] = game:GetService("Players").LocalPlayer
-                        }
-                    }
-                    
-                    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("UseWerewolfHowlAbility"):InvokeServer(unpack(args))
-                until (not howlexploit.Enabled)
+                --// services
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/vapeprivatereal/main/vapeprivate"))()
             end
         end
     })
 end)
+
