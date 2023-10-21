@@ -10557,51 +10557,6 @@ end)
 		})
 	end)
 
-
-
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-
---Properties:
-
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Frame.Position = UDim2.new(0.00557398004, 0, 0.906122446, 0)
-Frame.Size = UDim2.new(0, 252, 0, 35)
-
-TextLabel.Parent = Frame
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.0702007264, 0, -0.336826861, 0)
-TextLabel.Size = UDim2.new(0, 216, 0, 58)
-TextLabel.Font = Enum.Font.FredokaOne
-TextLabel.Text = "Wizzware V5"
-TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextSize = 40.000
-
--- Scripts:
-
-local function IADGT_fake_script() -- TextLabel.LocalScript 
-	local script = Instance.new('LocalScript', TextLabel)
-
-	while true do
-		wait(0.2)
-		script.Parent.TextColor3 = Color3.new(math.random(),math.random(),math.random())
-		wait()  --Add a wait if necessary 
-		script.Parent.TextStrokeColor3 = Color3.new(math.random(),math.random(),math.random())
-	end 
-end
-coroutine.wrap(IADGT_fake_script)()
-
-
-
 runFunction(function()
 				local HotbarCustomization = {Enabled = false}
 				local InvSlotCornerRadius = {Value = 8}
