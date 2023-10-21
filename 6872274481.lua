@@ -10906,3 +10906,27 @@ runFunction(function()
 	})
 end)
 
+runFunction(function()
+    local disabler12 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "ScytheDisabler",
+        HoverText = "Makes speed check have no braincells",
+        Function = function(callback)
+            if callback then
+                task.spawn(function()
+
+                    game:GetService('RunService').RenderStepped:Connect(function()
+
+                        local args = {
+                            [1] = {
+                                ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector
+                            }
+                        }
+
+                               game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+                      end)
+                end)
+            end
+        end
+    })
+end)
+
