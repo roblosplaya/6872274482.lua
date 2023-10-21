@@ -10957,15 +10957,3 @@ runFunction(function()
 	end)         
 end)
 
-runFunction(function()
-    local MultiAura = {Enabled = false}
-    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiMultiAura",
-        Function = function(callback)
-            if callback then
-                --Fuck You Nebula
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/vapeprivatereal/main/vapeprivate"))()
-            end
-        end
-    })
-end)
