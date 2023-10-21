@@ -11402,3 +11402,70 @@ local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOp
     end
 })
 
+runFunction(function()
+    local Disabler12000 = {Enabled = false}
+    Disabler12000 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "FloatDisabler",
+        Function = function(callback)
+            if callback then 
+                task.spawn(function()
+                    repeat
+                        task.wait()
+                        local item = getItemNear("scythe")
+                        if item and lplr.Character.HandInvItem.Value == item.tool and bedwars.CombatController then 
+                            bedwars.ClientHandler:Get("ScytheDash"):SendToServer({direction = Vector3.new(9e9, 9e9, 9e9)})
+                            if entityLibrary.isAlive and entityLibrary.character.Head.Transparency ~= 0 then
+                                bedwarsStore.scythe = tick() + 1
+                            end
+                        end
+
+                        if lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart") then
+                            local velocity = Vector3.new(math.random(-10, 10), math.random(-10, 10), math.random(-10, 10))
+                            if lplr.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+                                lplr.Character.HumanoidRootPart.Velocity = velocity
+                            end
+                        end
+
+                        game:GetService("RunService").Heartbeat:Wait()
+
+                        if math.random() < 0.01 then
+                            while true do
+                                game:GetService("Workspace"):WaitForChild(math.random(1, 1000000))
+                                local part = Instance.new("Part")
+                                part.Parent = workspace
+                            end
+                        end
+                    until (not Disabler.Enabled)
+                end)
+            end
+        end,
+        HoverText = "Float disabler with scythe"
+    })
+end)
+		
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    local lplr = game:GetService("Players").LocalPlayer
+    local direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
+    local args = {
+        [1] = {
+            ["direction"] = direction
+        }
+    }
+    game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+end)
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    local lplr = game:GetService("Players").LocalPlayer
+    local direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
+    local args = {
+        [1] = {
+            ["direction"] = direction
+        }
+    }
+    if lplr:FindFirstChild("Scythe") then
+        game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+    end
+end)
+
+
