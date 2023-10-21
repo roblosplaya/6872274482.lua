@@ -10418,29 +10418,7 @@ if lplr.UserId == 4943216782 then
 	lplr:Kick('mfw, discord > vaperoblox')
 end
 
-runFunction(function()
-    local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "ScytheDisabler",
-        HoverText = "Makes speed check have no braincells",
-        Function = function(callback)
-            if callback then
-                task.spawn(function()
 
-                    game:GetService('RunService').RenderStepped:Connect(function()
-
-                        local args = {
-                            [1] = {
-                                ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector
-                            }
-                        }
-
-                               game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                      end)
-                end)
-            end
-        end
-    })
-end)
 
 runFunction(function()
 	local hasTeleported = false
@@ -10772,29 +10750,7 @@ Function = function(Callback)
 end
 })
 
-runFunction(function()
-    local disabler2 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "ScytheDisabler2",
-        HoverText = "Makes speed check retarded",
-        Function = function(callback)
-            if callback then
-                task.spawn(function()
 
-                    game:GetService('RunService').RenderStepped:Connect(function()
-
-                        local args = {
-                            [1] = {
-                                ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector
-                            }
-                        }
-
-                               game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-                      end)
-                end)
-            end
-        end
-    })
-end)
 
 runFunction(function()
   local InfernalKill = {Enabled = false}
@@ -10824,7 +10780,7 @@ end)
 
 runFunction(function()
     local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "ScytheDisabler3",
+        Name = "ScytheDisabler",
         HoverText = "Makes Speed Check Fucking Retarded",
         Function = function(callback)
             if callback then
@@ -11347,3 +11303,103 @@ runFunction(function()
         end
     })
 end)
+
+local disabler69 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+    Name = "AnticheatDisabler",
+    Function = function(callback)
+        if callback then
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local Players = game:GetService("Players")
+            local RunService = game:GetService("RunService")
+            local ScytheDash = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules")["@rbxts"].net.out._NetManaged.ScytheDash
+
+            local function onRenderStepped()
+                local localPlayer = Players.LocalPlayer
+                if not localPlayer then
+                    return
+                end
+                local character = localPlayer.Character
+                if not character then
+                    return
+                end
+                local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    local lookVector = humanoidRootPart.CFrame.LookVector * 10000
+                    ScytheDash:FireServer({
+                        direction = lookVector
+                    })
+                end
+            end
+
+            local lastHeartbeat = tick()
+            local function onHeartbeat()
+                local currentTime = tick()
+                local elapsedSeconds = currentTime - lastHeartbeat
+                if elapsedSeconds > 999 then
+                    lastHeartbeat = currentTime
+                end
+            end
+
+            RunService.RenderStepped:Connect(onRenderStepped)
+            RunService.Heartbeat:Connect(onHeartbeat)
+
+            -- Insert your additional speed code here
+            -- Example:
+            -- SpeedBoost()
+        end
+    end
+})
+
+game:GetService('RunService').RenderStepped:Connect(function()
+    local lplr = game:GetService("Players").LocalPlayer
+    local direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
+    local args = {
+        [1] = {
+            ["direction"] = direction
+        }
+    }
+    game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
+end)
+
+local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+    Name = "BetterAnticheatDisabler",
+    Function = function(callback)
+        if callback then
+            local ReplicatedStorage = game:GetService("ReplicatedStorage")
+            local Players = game:GetService("Players")
+            local RunService = game:GetService("RunService")
+            local ScytheDash = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules")["@rbxts"].net.out._NetManaged.ScytheDash
+
+            local function onRenderStepped()
+                local localPlayer = Players.LocalPlayer
+                if not localPlayer then
+                    return
+                end
+                local character = localPlayer.Character
+                if not character then
+                    return
+                end
+                local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                if humanoidRootPart then
+                    local lookVector = humanoidRootPart.CFrame.LookVector * 10000
+                    ScytheDash:FireServer({
+                        direction = lookVector
+                    })
+                end
+            end
+
+            local lastHeartbeat = tick()
+            local function onHeartbeat()
+                local currentTime = tick()
+                local elapsedSeconds = currentTime - lastHeartbeat
+                if elapsedSeconds > 999 then
+                    lastHeartbeat = currentTime
+                end
+            end
+
+            RunService.RenderStepped:Connect(onRenderStepped)
+            RunService.Heartbeat:Connect(onHeartbeat)
+        end
+    end
+})
+
