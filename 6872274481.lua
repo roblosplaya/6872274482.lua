@@ -10752,64 +10752,6 @@ end)
 print ("Thanks For Using Wizzware")
 
 runFunction(function()
-    local AnticheatBypass = {Enabled = false}
-	local AnticheatBypassMode = {Value = 'LookVector'}
-    AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved['WizzwareWindow'].Api.CreateOptionsButton({
-        Name = "PartialDisabler",
-		HoverText = 'Partially Bypasses Anticheat',
-        Function = function(callback)
-            if callback then 
-				task.spawn(function()
-					repeat task.wait()
-						local scytheitem = nil
-						for _, scythe in next, scythes do
-							scytheitem = getItemNear(scythe)
-							if scytheitem then
-								break
-							end
-						end
-						local scytheitem1 = getItemNear'iron_scythe' -- not working in the table
-						if scytheitem or scytheitem1 and lplr.Character.HandInvItem.Value == scytheitem.tool or lplr.Character.HandInvItem.Value == scytheitem1.tool then
-							if AnticheatBypassMode.Value == 'LookVector' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.LookVector})
-							elseif AnticheatBypassMode.Value == 'MoveDirection' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.MoveDirection})
-							else
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = vec3(9e9, 9e9, 9e9)})
-							end
-							if GuiLibrary.ObjectsThatCanBeSaved.HeadlessOptionsButton.Api.Enabled then
-								if entity.isAlive and entity.character.HumanoidRootPart.Transparency ~= 0 then
-									bedwarsStore.scythe = tick() + 2
-								end
-							else
-								if entity.isAlive and entity.character.Head.Transparency ~= 0 then
-									bedwarsStore.scythe = tick() + 2
-								end
-							end
-						end
-					until not AnticheatBypass.Enabled
-				end)
-            end
-        end,
-		Default = false,
-        ExtraText = function()
-            return AnticheatBypassMode.Value
-        end
-    })
-	AnticheatBypassMode = AnticheatBypass.CreateDropdown({
-		Name = 'Mode',
-		List = {
-			'LookVector',
-			'MoveDirection',
-			'Vector'
-		},
-		HoverText = 'Direction Speed Mode',
-		Value = 'Normal',
-		Function = function() end
-	})
-end)
-
-runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "SemiDisabler",
         Function = function(callback)
