@@ -10963,7 +10963,7 @@ runFunction(function()
         Name = "SemiMultiAura",
         Function = function(callback)
             if callback then
-                --// services
+                --Fuck You Nebula
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/vapeprivatereal/main/vapeprivate"))()
             end
         end
