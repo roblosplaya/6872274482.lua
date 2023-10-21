@@ -3062,7 +3062,7 @@ runFunction(function()
 		end,
 		HoverText = "Makes you go zoom (longer Fly discovered by exelys and Cqded)",
 		ExtraText = function() 
-			return "Heatseeker"
+			return "Speedy"
 		end
 	})
 	FlySpeed = Fly.CreateSlider({
@@ -11402,79 +11402,6 @@ local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOp
     end
 })
 
-runFunction(function()
-	local NebulawareFly = {Enabled = false}
-	local NebulawareFlyYLevel = {Value = 44}
-	local NebulawareFlyStill = {Value = 4}
-	local NebulawareFlyLevelY = {Enabled = true}
-	local NebulawareFlyTable = {
-		YLevel = NebulawareFlyYLevel.Value,
-		StillVelo = NebulawareFlyStill.Value
-	}
-	NebulawareFly = GuiLibrary.ObjectsThatCanBeSaved.NebulawareWindow.Api.CreateOptionsButton({
-		Name = "WizzwareFly",
-        HoverText = "idk what this do",
-		Function = function(callback)
-			if callback then
-				local velo = NebulawareFlyTable.StillVelo
-				local dir = 0
-				task.spawn(function()
-					repeat task.wait()
-						local SpacedEvent = game:GetService("UserInputService").InputBegan:Connect(function(input)
-							if input.KeyCode == Enum.KeyCode.Space then
-								dir = 1
-							end
-						end)
-						local SpacedEvent2 = game:GetService("UserInputService").InputEnded:Connect(function(input)
-							if input.KeyCode == Enum.KeyCode.Space then
-								dir = 0
-							end
-						end)
-						local ShiftedEvent = game:GetService("UserInputService").InputBegan:Connect(function(input)
-							if input.KeyCode == Enum.KeyCode.LeftShift then
-								dir = 2
-							end
-						end)
-						local ShiftedEvent2 = game:GetService("UserInputService").InputEnded:Connect(function(input)
-							if input.KeyCode == Enum.KeyCode.LeftShift then
-								dir = 0
-							end
-						end)
-						if NebulawareFlyLevelY.Enabled then
-							if dir == 0 then
-								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,velo,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
-							elseif dir == 1 then
-								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,NebulawareFlyTable.YLevel,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
-							else
-								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,-NebulawareFlyTable.YLevel,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
-							end
-						else
-							game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,velo,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
-						end
-					until not NebulawareFly.Enabled
-				end)
-			end
-		end
-	})
-	NebulawareFlyYLevel = NebulawareFly.CreateSlider({
-		Name = "Vertical Speed",
-		Min = 1,
-		Max = 100,
-		Function = function() end,
-		Default = 44
-	})
-	NebulawareFlyStill = NebulawareFly.CreateSlider({
-		Name = "Still Velocity",
-		Min = 1,
-		Max = 10,
-		Function = function() end,
-		Default = 4
-	})
-	NebulawareFlyLevelY = NebulawareFly.CreateToggle({
-		Name = "Y Level",
-		Function = function() end,
-	})
-end)
 
 
 
