@@ -11436,6 +11436,35 @@ runFunction(function()
 	})
 end)
 
+runFunction(function()
+	local EmberTroll = {Enabled = false}
 
-
+	EmberTroll = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+		Name = 'InstaKillV2',
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat task.wait() until not EmberTroll.Enabled or bedwarsStore.matchState ~= 0
+					if EmberTroll.Enabled then
+						repeat
+							task.wait()
+							if not EmberTroll.Enabled then break end
+							if bedwarsStore.pingSpiking then
+								continue
+							end
+							local saber = getItem('infernal_saber')
+							if saber then
+								bedwars.ClientHandler:Get('HellBladeRelease'):SendToServer({
+									["chargeTime"] = 0.999,
+									["player"] = lplr,
+									["weapon"] = saber.tool
+								})
+							end
+						until not EmberTroll.Enabled
+					end
+				end)
+			end
+		end
+	})
+end)
 
