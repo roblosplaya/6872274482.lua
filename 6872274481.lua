@@ -11403,69 +11403,78 @@ local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOp
 })
 
 runFunction(function()
-    local Disabler12000 = {Enabled = false}
-    Disabler12000 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "FloatDisabler",
-        Function = function(callback)
-            if callback then 
-                task.spawn(function()
-                    repeat
-                        task.wait()
-                        local item = getItemNear("scythe")
-                        if item and lplr.Character.HandInvItem.Value == item.tool and bedwars.CombatController then 
-                            bedwars.ClientHandler:Get("ScytheDash"):SendToServer({direction = Vector3.new(9e9, 9e9, 9e9)})
-                            if entityLibrary.isAlive and entityLibrary.character.Head.Transparency ~= 0 then
-                                bedwarsStore.scythe = tick() + 1
-                            end
-                        end
-
-                        if lplr.Character and lplr.Character:FindFirstChild("HumanoidRootPart") then
-                            local velocity = Vector3.new(math.random(-10, 10), math.random(-10, 10), math.random(-10, 10))
-                            if lplr.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
-                                lplr.Character.HumanoidRootPart.Velocity = velocity
-                            end
-                        end
-
-                        game:GetService("RunService").Heartbeat:Wait()
-
-                        if math.random() < 0.01 then
-                            while true do
-                                game:GetService("Workspace"):WaitForChild(math.random(1, 1000000))
-                                local part = Instance.new("Part")
-                                part.Parent = workspace
-                            end
-                        end
-                    until (not Disabler.Enabled)
-                end)
-            end
-        end,
-        HoverText = "Float disabler with scythe"
-    })
+	local NebulawareFly = {Enabled = false}
+	local NebulawareFlyYLevel = {Value = 44}
+	local NebulawareFlyStill = {Value = 4}
+	local NebulawareFlyLevelY = {Enabled = true}
+	local NebulawareFlyTable = {
+		YLevel = NebulawareFlyYLevel.Value,
+		StillVelo = NebulawareFlyStill.Value
+	}
+	NebulawareFly = GuiLibrary.ObjectsThatCanBeSaved.NebulawareWindow.Api.CreateOptionsButton({
+		Name = "WizzwareFly",
+        HoverText = "idk what this do",
+		Function = function(callback)
+			if callback then
+				local velo = NebulawareFlyTable.StillVelo
+				local dir = 0
+				task.spawn(function()
+					repeat task.wait()
+						local SpacedEvent = game:GetService("UserInputService").InputBegan:Connect(function(input)
+							if input.KeyCode == Enum.KeyCode.Space then
+								dir = 1
+							end
+						end)
+						local SpacedEvent2 = game:GetService("UserInputService").InputEnded:Connect(function(input)
+							if input.KeyCode == Enum.KeyCode.Space then
+								dir = 0
+							end
+						end)
+						local ShiftedEvent = game:GetService("UserInputService").InputBegan:Connect(function(input)
+							if input.KeyCode == Enum.KeyCode.LeftShift then
+								dir = 2
+							end
+						end)
+						local ShiftedEvent2 = game:GetService("UserInputService").InputEnded:Connect(function(input)
+							if input.KeyCode == Enum.KeyCode.LeftShift then
+								dir = 0
+							end
+						end)
+						if NebulawareFlyLevelY.Enabled then
+							if dir == 0 then
+								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,velo,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
+							elseif dir == 1 then
+								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,NebulawareFlyTable.YLevel,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
+							else
+								game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,-NebulawareFlyTable.YLevel,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
+							end
+						else
+							game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.X,velo,game:GetService("Players").LocalPlayer.Character.PrimaryPart.Velocity.Z)
+						end
+					until not NebulawareFly.Enabled
+				end)
+			end
+		end
+	})
+	NebulawareFlyYLevel = NebulawareFly.CreateSlider({
+		Name = "Vertical Speed",
+		Min = 1,
+		Max = 100,
+		Function = function() end,
+		Default = 44
+	})
+	NebulawareFlyStill = NebulawareFly.CreateSlider({
+		Name = "Still Velocity",
+		Min = 1,
+		Max = 10,
+		Function = function() end,
+		Default = 4
+	})
+	NebulawareFlyLevelY = NebulawareFly.CreateToggle({
+		Name = "Y Level",
+		Function = function() end,
+	})
 end)
-		
 
-game:GetService('RunService').RenderStepped:Connect(function()
-    local lplr = game:GetService("Players").LocalPlayer
-    local direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
-    local args = {
-        [1] = {
-            ["direction"] = direction
-        }
-    }
-    game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-end)
-
-game:GetService('RunService').RenderStepped:Connect(function()
-    local lplr = game:GetService("Players").LocalPlayer
-    local direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
-    local args = {
-        [1] = {
-            ["direction"] = direction
-        }
-    }
-    if lplr:FindFirstChild("Scythe") then
-        game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
-    end
-end)
 
 
