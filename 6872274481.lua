@@ -10728,7 +10728,7 @@ end)
 runFunction(function()
     local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
-        HoverText = "Makes Speed Check Fucking Retarded",
+        HoverText = "Disables Anticheat Abit",
         Function = function(callback)
             if callback then
                 task.spawn(function()
@@ -10751,105 +10751,11 @@ end)
 
 print ("Thanks For Using Wizzware")
 
-runFunction(function()
-	local Disabler = {Enabled = false}
-	local DisablerMode = {Value = 'Lunar'}
-	local DisablerSpeed = {Value = 100}
-	local DisablerBeat = {Value = 99}
-	local DisablerDelay = {Value = 1}
-	local disablerhandler = {}
-	disablerhandler.__index = disablerhandler
-	local dir, del, hrt
-	function setvals(x, y, z)
-		if DisablerMode.Value == 'Lunar' then
-			dir, del, hrt = x, y, z
-		else
-			dir, del, hrt = DisablerSpeed.Value * 100, DisablerDelay.Value, DisablerBeat.Value * 100
-		end
-	end
-	function disablerhandler.new()
-		local self = setmetatable({}, disablerhandler)
-		self.dash = self:dashrem()
-		self.maincor = coroutine.create(function()
-			if Disabler.Enabled then
-				repeat task.wait()
-					self:timer()
-					task.wait(del or 1)
-				until not Disabler.Enabled
-			end
-		end)
-		runService.RenderStepped:Connect(function()
-			self:dirset()
-		end)
-		coroutine.resume(self.maincor)
-		return self
-	end
-	function disablerhandler:dashrem()
-		return replicatedStorageService.rbxts_include.node_modules['@rbxts'].net.out._NetManaged.ScytheDash
-	end
-	function disablerhandler:dirset()
-		self.dash:FireServer({direction = lplr.Character:FindFirstChild'HumanoidRootPart'.CFrame.LookVector * dir or 1e4})
-	end
-	function disablerhandler:timer()
-		local timer = os.time()
-		if timer - self.lastHeartbeat > hrt or 9999 then
-			self.lastHeartbeat = timer
-		end
-	end
-    DisablerWIZZ = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"]["CreateOptionsButton"]({
-        Name = 'BetterSemiDisabler',
-		HoverText = 'Disables the AntiCheat using the Scythe',
-        Function = function(callback)
-            if callback then
-				task.spawn(function()
-					pcall(function()
-						setvals(1e4, 1, 9999)
-						local mainhandler = disablerhandler.new()
-					end)
-				end)
-            end
-        end,
-        ExtraText = function()
-            return DisablerMode.Value
-        end
-    })
-	DisablerMode = Disabler.CreateDropdown({
-		Name = 'Mode',
-		List = {
-			'Wizz',
-			'Custom'
-		},
-		HoverText = 'Mode for the values',
-		Value = 'Wizz',
-		Function = function() end
-	})
-	DisablerSpeed = Disabler.CreateSlider({
-		Name = 'Speed',
-		Min = 1,
-		Max = 100,
-		HoverText = 'Speed of the Disabler',
-		Function = function() end,
-		Default = 100
-	})
-	DisablerBeat = Disabler.CreateSlider({
-		Name = 'Timer',
-		Min = 1,
-		Max = 99,
-		Function = function() end,
-		Default = 99
-	})
-	DisablerDelay = Disabler.CreateSlider({
-		Name = 'Delay',
-		Min = 1,
-		Max = 2,
-		Function = function() end,
-		Default = 1
-	})
-end)
+
 
 runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiDisabler",
+        Name = "SemiBetterDisabler",
         Function = function(callback)
             if callback then
                 local ReplicatedStorage = game:GetService("ReplicatedStorage")
