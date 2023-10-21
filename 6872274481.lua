@@ -10997,7 +10997,7 @@ runFunction(function()
     })
 end)
 
-local disabler69 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+local disabler6912 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
     Name = "AnticheatDisabler",
     Function = function(callback)
         if callback then
@@ -11118,33 +11118,6 @@ runFunction(function()
 	})
 end)
 
-local PartyPopper = {Enabled = false}
-PartyPopper = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
-	Name = "PartyPopper",
-	Function = function(callback)
-		if callback then 
-			task.spawn(function()	
-				repeat task.wait(0.3) 
-				repstorage["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
-				until (not PartyPopper.Enabled)
-			end)
-		end
-	end
-})
-
-local DragonBreath = {Enabled = false}
-DragonBreath = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
-	Name = "DragonBreath",
-	Function = function(callback)
-		if callback then 
-			task.spawn(function()	
-				repeat task.wait(0.3) 
-repstorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DragonBreath"):FireServer({player = lplr})
-				until (not DragonBreath.Enabled)
-			end)
-		end
-	end
-})
 
 local jumpfly = {Enabled = false}
 jumpfly = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
