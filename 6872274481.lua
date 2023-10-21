@@ -11275,14 +11275,14 @@ runFunction(function()
 end)
 
 runFunction(function()
-local vclip = {Enabled = false}
-vclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+local TPclip = {Enabled = false}
+TPclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
 Name = "ClipDown",
 Function = function(callback)
 if callback then
   if entityLibrary.isAlive then
 	entityLibrary.character.HumanoidRootPart.CFrame += Vector3.new(0, -7, 0)
-	 vclip["ToggleButton"](false)
+	 TPclip["ToggleButton"](false)
   end
 end
 end
@@ -11379,10 +11379,10 @@ Host = GuiLibrary["ObjectsThatCanBeSaved"]["NebulawareWindow"]["Api"].CreateOpti
 })
 
 runFunction(function()
-	local NuhuhClip = {Enabled = false}
-	NuhuhClip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"]["CreateOptionsButton"]({
+	local VClip = {Enabled = false}
+	VClip = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"]["CreateOptionsButton"]({
 		Name = "AntiNoclip",
-		HoverText = "no more noclip",
+		HoverText = "Prevents you from noclipping into the ground when landing from\nInfiniteFly etc. (Prevents being lagbacked using infinitefly)",
 		Function = function(callback)
 			if callback then
 				task.spawn(function()
@@ -11401,7 +11401,7 @@ runFunction(function()
 								end
 							end
 						end	
-					until not NuhuhClip.Enabled
+					until not VClip.Enabled
 				end)
 			end
 		end
