@@ -10860,45 +10860,6 @@ game.Workspace.Gravity = 196.2
 		})
 	end)
 
-runFunction(function()
-		local InfiniteJump = {Enabled = false}
-		local InfiniteJumpHold = {Enabled = false}
-
-		InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-			Name = 'InfiniteJump',
-			HoverText = 'infinitely jump',
-			Function = function(callback)
-				if callback then
-					local held = false
-					table.insert(InfiniteJump.Connections, inputService.InputBegan:Connect(function(input)
-						if input.KeyCode == Enum.KeyCode.Space and not inputService:GetFocusedTextBox() then
-							held = true
-							if entityLibrary.isAlive then
-								if InfiniteJumpHold.Enabled then
-									repeat
-										entityLibrary.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-										task.wait()
-									until not held or not InfiniteJump.Enabled or not InfiniteJumpHold.Enabled or inputService:GetFocusedTextBox()
-								else
-									entityLibrary.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-								end
-							end
-						end
-					end))
-					table.insert(InfiniteJump.Connections, inputService.InputEnded:Connect(function(input)
-						if input.KeyCode == Enum.KeyCode.Space and not inputService:GetFocusedTextBox() then
-							held = false
-						end
-					end))
-				end
-			end
-		})
-		InfiniteJumpHold = InfiniteJump.CreateToggle({
-			Name = 'Hold',
-			HoverText = 'Hold down space to jump',
-			Function = blankFunction
-		})
-	end)
 
 runFunction(function()
     local disabler12 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
@@ -10912,7 +10873,7 @@ runFunction(function()
 
                         local args = {
                             [1] = {
-                                ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.LookVector
+                                ["direction"] = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame.Vector
                             }
                         }
 
