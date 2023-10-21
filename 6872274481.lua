@@ -9590,9 +9590,9 @@ runFunction(function()
 	nukerrange = Nuker.CreateSlider({
 		Name = "Break range",
 		Min = 1, 
-		Max = 30, 
+		Max = 50, 
 		Function = function(val) end, 
-		Default = 30
+		Default = 50
 	})
 	nukerlegit = Nuker.CreateToggle({
 		Name = "Hand Check",
