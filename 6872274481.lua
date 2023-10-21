@@ -3062,7 +3062,7 @@ runFunction(function()
 		end,
 		HoverText = "Makes you go zoom (longer Fly discovered by exelys and Cqded)",
 		ExtraText = function() 
-			return "Speedy"
+			return "Heatseeker"
 		end
 	})
 	FlySpeed = Fly.CreateSlider({
