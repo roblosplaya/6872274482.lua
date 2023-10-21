@@ -11303,3 +11303,47 @@ local OldAntiVoid = {["Enabled"] = false}
     Default = false,
     HoverText = "Better AntiVoid"
 })
+
+runFunction(function()
+    local RGBSwordOutline
+    RGBSwordOutline = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "SwordOutline",
+        Function = function(callback)
+            if callback then 
+                spawn(function()
+                    local cam = game.Workspace.CurrentCamera
+                    Connection = cam.Viewmodel.ChildAdded:Connect(function(v)
+                        highlight2 = Instance.new('Highlight')
+                        highlight2.Parent = v.Handle
+                        if v:FindFirstChild("Handle") then
+                            pcall(function()
+                                highlight2.FillTransparency = 1
+                                while wait() do
+                                    highlight2.OutlineColor = Color3.fromHSV(tick()%5/5,1,1)
+                                end
+                            end)
+                        end
+                    end)
+                    spawn(function()
+                        repeat task.wait() until unejected == true 
+                        EnabledOutlines = false
+                        if Connection ~= nil then
+                            if type(Connection) == "userdata" then
+                                Connection:Disconnect()
+                                Connection = nil
+                            end
+                        end
+                    end)
+                end)
+            else
+                EnabledOutlines = false
+                if Connection ~= nil then
+                    if type(Connection) == "userdata" then
+                        Connection:Disconnect()
+                        Connection = nil
+                    end
+                end
+            end
+        end
+    })
+end)
