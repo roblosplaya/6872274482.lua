@@ -11377,33 +11377,3 @@ Host = GuiLibrary["ObjectsThatCanBeSaved"]["NebulawareWindow"]["Api"].CreateOpti
         end
     end
 })
-
-runFunction(function()
-	local VClip = {Enabled = false}
-	VClip = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"]["CreateOptionsButton"]({
-		Name = "AntiNoclip",
-		HoverText = "Prevents you from noclipping into the ground when landing from\nInfiniteFly etc. (Prevents being lagbacked using infinitefly)",
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat task.wait() until entityLibrary.isAlive
-					repeat task.wait()
-						if lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health > 0 then
-							if lplr.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
-								local block, pos = getPlacedBlock(lplr.character.HumanoidRootPart.Position + Vector3.new(0, -3, 0))
-								pos = pos * 3
-								if block and pos then
-									if (pos.Y + 8) >= lplr.Character.PrimaryPart.Position.Y then
-										local velocity = lplr.Character.PrimaryPart.Velocity
-										velocity = Vector2.new(velocity.X, velocity.Z)
-										lplr.Character.PrimaryPart.Velocity = Vector3.new(velocity.X, 0, velocity.Y)
-									end
-								end
-							end
-						end	
-					until not VClip.Enabled
-				end)
-			end
-		end
-	})
-end)
