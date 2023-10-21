@@ -11153,7 +11153,7 @@ end
 
 runFunction(function()
     local GodMode = {Enabled = false}
-    GodMode = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+    GodMode = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "PartialGodmode",
         Function = function(callback)
             if callback then
