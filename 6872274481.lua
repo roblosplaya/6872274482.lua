@@ -10692,8 +10692,8 @@ runFunction(function()
 						end
 					end
 				end
-				HotbarCustomization = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
-					Name = "HotbarCustomization",
+				HotbarCustomization = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+					Name = "CustomHotbar",
 					HoverText = "Customize the ugly default hotbar to your liking.",
 					Approved = true,
 					Function = function(callback)
@@ -10761,7 +10761,7 @@ runFunction(function()
 local Messages = {"wizzware on top", "cope", "get fucked", "lmao", "best config", "wizzware", "edp445", "balls"}
 local old
 local FunnyIndicator = {Enabled = false}
-FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+FunnyIndicator = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 Name = "DamageIndicator",
 Function = function(Callback)
 	FunnyIndicator.Enabled = Callback
@@ -10865,12 +10865,12 @@ print ("Thanks For Using Wizzware")
 
 runFunction(function()
     local InfYield = {Enabled = false}
-    InfYield = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+    InfYield = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "Infinite Yield",
         Function = function(callback)
             if callback then
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-                InfYield.ToggleButton(true)
+                InfYield.ToggleButton(false)
             end
         end
     })
