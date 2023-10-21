@@ -10864,7 +10864,7 @@ runFunction(function()
 		local InfiniteJump = {Enabled = false}
 		local InfiniteJumpHold = {Enabled = false}
 
-		InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+		InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 			Name = 'InfiniteJump',
 			HoverText = 'infinitely jump',
 			Function = function(callback)
