@@ -10861,50 +10861,44 @@ game.Workspace.Gravity = 196.2
 	end)
 
 runFunction(function()
-	local LagbackDetector = {Enabled = false}
-	local LagbackDetectorDur = {Value = 5}
-	local sendlagback, sendlagback2 = true, false
-	LagbackDetector = GuiLibrary.ObjectsThatCanBeSaved['WizzwareWindow'].Api.CreateOptionsButton({
-		Name = 'LagbackDetector',
-        HoverText = 'Detects when you lagback',
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
-					sendlagback, sendlagback2 = true, false
-					repeat task.wait()
-						if entityLunar.isAlive then
-							if isnetworkowner(lplr.Character.HumanoidRootPart) then
-								if sendlagback2 then
-									warningNotification2('LagbackDetector', 'You are free to go', LagbackDetectorDur.Value)
+		local InfiniteJump = {Enabled = false}
+		local InfiniteJumpHold = {Enabled = false}
+
+		InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = 'InfiniteJump',
+			HoverText = 'infinitely jump',
+			Function = function(callback)
+				if callback then
+					local held = false
+					table.insert(InfiniteJump.Connections, inputService.InputBegan:Connect(function(input)
+						if input.KeyCode == Enum.KeyCode.Space and not inputService:GetFocusedTextBox() then
+							held = true
+							if entityLibrary.isAlive then
+								if InfiniteJumpHold.Enabled then
+									repeat
+										entityLibrary.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+										task.wait()
+									until not held or not InfiniteJump.Enabled or not InfiniteJumpHold.Enabled or inputService:GetFocusedTextBox()
+								else
+									entityLibrary.character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
 								end
-								sendlagback2 = false
-							elseif not isnetworkowner(lplr.Character.HumanoidRootPart) then
-								if sendlagback then
-									warningNotification2('LagbackDetector', 'Lagbacked, please stand still', LagbackDetectorDur.Value)
-								end
-								sendlagback2 = true
-								sendlagback = false
-								task.wait(LagbackDetectorDur.Value)
-								sendlagback = true
 							end
 						end
-					until not LagbackDetector.Enabled
-				end)
-			else
-				sendlagback, sendlagback2 = true, false
+					end))
+					table.insert(InfiniteJump.Connections, inputService.InputEnded:Connect(function(input)
+						if input.KeyCode == Enum.KeyCode.Space and not inputService:GetFocusedTextBox() then
+							held = false
+						end
+					end))
+				end
 			end
-		end,
-        Default = false
-	})
-	LagbackDetectorDur = LagbackDetector.CreateSlider({
-		Name = 'Duration',
-		Min = 1,
-		Max = 10,
-		HoverText = 'Duration of the notification',
-		Function = function() end,
-		Default = 5
-	})
-end)
+		})
+		InfiniteJumpHold = InfiniteJump.CreateToggle({
+			Name = 'Hold',
+			HoverText = 'Hold down space to jump',
+			Function = blankFunction
+		})
+	end)
 
 runFunction(function()
     local disabler12 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
