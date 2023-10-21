@@ -10,7 +10,7 @@ In many programming contexts, "true" is used to indicate that a condition is met
 The value "false" represents something that is considered to be false or invalid.
 In programming, "false" is often used to indicate that a condition is not met or that a statement is not valid.
 ]]
-        WaitTime = 13.3 -- hoW long it Waits before starting (for bw XP counter). Recommended 10-15 seconds
+        WaitTime = 0.1 -- hoW long it Waits before starting (for bw XP counter). Recommended 10-15 seconds
     };
     Game = {
         LowFPS = {
