@@ -11293,16 +11293,28 @@ end
 })
 end)
 
-runFunction(function()
-    local MultiAura = {Enabled = false}
-    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "MultiAura",
-        Function = function(callback)
-            if callback then
-                --// services
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/vapeprivatereal/main/vapeprivate"))()
-            end
+local OldAntiVoid = {["Enabled"] = false}
+      OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+    ["Name"] = "BetterAntiVoid",
+    ["Function"] = function(callback) 
+        if callback then
+            local antivoidpart = Instance.new("Part", Workspace)
+            antivoidpart.Name = "AntiVoid"
+            antivoidpart.Size = Vector3.new(2100, 0.5, 2000)
+            antivoidpart.Position = Vector3.new(160.5, 25, 247.5)
+            antivoidpart.Transparency = 0.4
+            antivoidpart.Anchored = true
+            antivoidpart.Touched:connect(function(dumbcocks)
+                if dumbcocks.Parent:WaitForChild("Humanoid") and dumbcocks.Parent.Name == lplr.Name then
+                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+                    wait(0.2)
+                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+                    wait(0.2)
+                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
+                end
+            end)
         end
-    })
-end)
-
+    end,
+    Default = false,
+    HoverText = "Better AntiVoid"
+})
