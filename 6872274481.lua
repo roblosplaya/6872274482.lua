@@ -10752,60 +10752,98 @@ end)
 print ("Thanks For Using Wizzware")
 
 runFunction(function()
-    local AnticheatBypass = {Enabled = false}
-	local AnticheatBypassMode = {Value = 'LookVector'}
-    AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved['WizzwareWindow'].Api.CreateOptionsButton({
-        Name = "PartialDisabler",
-		HoverText = 'Partially Bypasses Anticheat',
+	local Disabler = {Enabled = false}
+	local DisablerMode = {Value = 'Lunar'}
+	local DisablerSpeed = {Value = 100}
+	local DisablerBeat = {Value = 99}
+	local DisablerDelay = {Value = 1}
+	local disablerhandler = {}
+	disablerhandler.__index = disablerhandler
+	local dir, del, hrt
+	function setvals(x, y, z)
+		if DisablerMode.Value == 'Lunar' then
+			dir, del, hrt = x, y, z
+		else
+			dir, del, hrt = DisablerSpeed.Value * 100, DisablerDelay.Value, DisablerBeat.Value * 100
+		end
+	end
+	function disablerhandler.new()
+		local self = setmetatable({}, disablerhandler)
+		self.dash = self:dashrem()
+		self.maincor = coroutine.create(function()
+			if Disabler.Enabled then
+				repeat task.wait()
+					self:timer()
+					task.wait(del or 1)
+				until not Disabler.Enabled
+			end
+		end)
+		runService.RenderStepped:Connect(function()
+			self:dirset()
+		end)
+		coroutine.resume(self.maincor)
+		return self
+	end
+	function disablerhandler:dashrem()
+		return replicatedStorageService.rbxts_include.node_modules['@rbxts'].net.out._NetManaged.ScytheDash
+	end
+	function disablerhandler:dirset()
+		self.dash:FireServer({direction = lplr.Character:FindFirstChild'HumanoidRootPart'.CFrame.LookVector * dir or 1e4})
+	end
+	function disablerhandler:timer()
+		local timer = os.time()
+		if timer - self.lastHeartbeat > hrt or 9999 then
+			self.lastHeartbeat = timer
+		end
+	end
+    DisablerWIZZ = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"]["CreateOptionsButton"]({
+        Name = 'BetterSemiDisabler',
+		HoverText = 'Disables the AntiCheat using the Scythe',
         Function = function(callback)
-            if callback then 
+            if callback then
 				task.spawn(function()
-					repeat task.wait()
-						local scytheitem = nil
-						for _, scythe in next, scythes do
-							scytheitem = getItemNear(scythe)
-							if scytheitem then
-								break
-							end
-						end
-						local scytheitem1 = getItemNear'iron_scythe' -- not working in the table
-						if scytheitem or scytheitem1 and lplr.Character.HandInvItem.Value == scytheitem.tool or lplr.Character.HandInvItem.Value == scytheitem1.tool then
-							if AnticheatBypassMode.Value == 'LookVector' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.LookVector})
-							elseif AnticheatBypassMode.Value == 'MoveDirection' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.MoveDirection})
-							else
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = vec3(9e9, 9e9, 9e9)})
-							end
-							if GuiLibrary.ObjectsThatCanBeSaved.HeadlessOptionsButton.Api.Enabled then
-								if entity.isAlive and entity.character.HumanoidRootPart.Transparency ~= 0 then
-									bedwarsStore.scythe = tick() + 2
-								end
-							else
-								if entity.isAlive and entity.character.Head.Transparency ~= 0 then
-									bedwarsStore.scythe = tick() + 2
-								end
-							end
-						end
-					until not AnticheatBypass.Enabled
+					pcall(function()
+						setvals(1e4, 1, 9999)
+						local mainhandler = disablerhandler.new()
+					end)
 				end)
             end
         end,
-		Default = false,
         ExtraText = function()
-            return AnticheatBypassMode.Value
+            return DisablerMode.Value
         end
     })
-	AnticheatBypassMode = AnticheatBypass.CreateDropdown({
+	DisablerMode = Disabler.CreateDropdown({
 		Name = 'Mode',
 		List = {
-			'LookVector',
-			'MoveDirection',
-			'Vector'
+			'Wizz',
+			'Custom'
 		},
-		HoverText = 'Direction Speed Mode',
-		Value = 'Normal',
+		HoverText = 'Mode for the values',
+		Value = 'Wizz',
 		Function = function() end
+	})
+	DisablerSpeed = Disabler.CreateSlider({
+		Name = 'Speed',
+		Min = 1,
+		Max = 100,
+		HoverText = 'Speed of the Disabler',
+		Function = function() end,
+		Default = 100
+	})
+	DisablerBeat = Disabler.CreateSlider({
+		Name = 'Timer',
+		Min = 1,
+		Max = 99,
+		Function = function() end,
+		Default = 99
+	})
+	DisablerDelay = Disabler.CreateSlider({
+		Name = 'Delay',
+		Min = 1,
+		Max = 2,
+		Function = function() end,
+		Default = 1
 	})
 end)
 
