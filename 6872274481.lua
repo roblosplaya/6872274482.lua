@@ -10787,7 +10787,7 @@ end)
 
 runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiDisabler",
+        Name = "PartialDisabler",
         Function = function(callback)
             if callback then
                 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -10976,103 +10976,4 @@ game.Workspace.Gravity = 196.2
 		})
 	end)
 
-runFunction(function()
-			local ArmorColoring = {Enabled = false}
-			local armorcolorboots = {Enabled = false}
-			local armorcolorchestplate = {Enabled = false}
-			local armorcolorhelmet = {Enabled = false}
-			local armorcolorneon = {Enabled = false}
-			local armorcolor = {Hue = 0, Sat = 0, Value = 0}
-			local oldarmortextures = {}
-			local transformedobjects = {}
-			local function isArmor(tool) return armorcolorhelmet.Enabled and tool.Name:find("_helmet") or armorcolorchestplate.Enabled and tool.Name:find("_chestplate") or armorcolorboots.Enabled and tool.Name:find("_boots") or nil end
-			local function refresharmor()
-				return pcall(function()
-					for i,v in pairs(lplr.Character:GetChildren()) do
-						if v:IsA("Accessory") and v:GetAttribute("ArmorSlot") and isArmor(v) then
-							local handle = v:FindFirstChild("Handle")
-							if not handle then continue end
-							if oldarmortextures[v] == nil then oldarmortextures[v] = handle.TextureID end
-							handle.TextureID = ""
-							handle.Color = Color3.fromHSV(armorcolor.Hue, armorcolor.Sat, armorcolor.Value)
-							handle.Material = armorcolorneon.Enabled and Enum.Material.Neon or Enum.Material.SmoothPlastic
-							table.insert(transformedobjects, handle)
-						end 
-					end
-				end)
-			end
-			ArmorColoring = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-				Name = "ArmorColoring",
-				HoverText = "add some glow up to your armor.",
-				Function = function(callback)
-					if callback then
-						task.spawn(function()
-							if not isAlive() then repeat task.wait() until isAlive() end
-							task.spawn(refresharmor)
-							table.insert(ArmorColoring.Connections, lplr.CharacterAdded:Connect(function()
-								if not isAlive() then repeat task.wait() until isAlive() end
-								ArmorColoring.ToggleButton(false)
-								ArmorColoring.ToggleButton(false)
-							end))
-							table.insert(ArmorColoring.Connections, lplr.Character.ChildAdded:Connect(function(v)
-								if v:IsA("Accessory") and v:GetAttribute("ArmorSlot") and isArmor(v) then
-									refresharmor()
-								end
-							end))
-						end)
-					else
-						for i,v in pairs(transformedobjects) do
-							if v.Parent and oldarmortextures[v.Parent] then
-								pcall(function() v.TextureID = oldarmortextures[v.Parent] end)
-							end
-						end
-						transformedobjects = {}
-					end
-				end
-			})
-			armorcolor = ArmorColoring.CreateColorSlider({
-				Name = "Color",
-				Function = function()
-					if ArmorColoring.Enabled then
-						refresharmor()
-					end
-				end
-			})
-			armorcolorneon = ArmorColoring.CreateToggle({
-				Name = "Neon",
-				Function = function()
-				if ArmorColoring.Enabled then
-					ArmorColoring.ToggleButton(false)
-					ArmorColoring.ToggleButton(false)
-				end
-			    end
-			})
-			armorcolorhelmet = ArmorColoring.CreateToggle({
-				Name = "Helmet",
-				Function = function()
-				if ArmorColoring.Enabled then
-					ArmorColoring.ToggleButton(false)
-					ArmorColoring.ToggleButton(false)
-				end
-			    end
-			})
-			armorcolorchestplate = ArmorColoring.CreateToggle({
-				Name = "Chestplate",
-				Function = function()
-				if ArmorColoring.Enabled then
-					ArmorColoring.ToggleButton(false)
-					ArmorColoring.ToggleButton(false)
-				end
-			    end
-			})
-			armorcolorboots = ArmorColoring.CreateToggle({
-				Name = "Boots",
-				Default = true,
-				Function = function()
-				if ArmorColoring.Enabled then
-					ArmorColoring.ToggleButton(false)
-					ArmorColoring.ToggleButton(false)
-				end
-			    end
-			})
-		end)
+
