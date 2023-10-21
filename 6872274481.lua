@@ -10578,24 +10578,13 @@ runFunction(function()
 end)
 
 runFunction(function()
-	local FramesMaxer = {Enabled = false}
-	FramesMaxer = GuiLibrary.ObjectsThatCanBeSaved.NebulawareWindow.Api.CreateOptionsButton({
+	FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 		Name = "FPSUnlocker",
-		HoverText = "Maxes out your Frames Per Second (FPS)",
 		Function = function(callback)
 			if callback then
-				setfpscap(FramesMaxerAmount.Value)
-			else
-				setfpscap(60)
+				setfpscap(36000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
 			end
 		end
-	})
-	FramesMaxerAmount = FramesMaxer.CreateSlider({
-		Name = "Amount",
-		Min = 1,
-		Max = 9e9,
-		Function = function() end,
-		Default = 9e9
 	})
 end)
 
@@ -11274,6 +11263,21 @@ runFunction(function()
     })
 end)
 
+runFunction(function()
+local vclip = {Enabled = false}
+vclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+Name = "ClipDown",
+Function = function(callback)
+if callback then
+  if entityLibrary.isAlive then
+	entityLibrary.character.HumanoidRootPart.CFrame += Vector3.new(0, -7, 0)
+	 vclip["ToggleButton"](false)
+  end
+end
+end
+})
+end)
+
 local OldAntiVoid = {["Enabled"] = false}
       OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
     ["Name"] = "BetterAntiVoid",
@@ -11299,5 +11303,3 @@ local OldAntiVoid = {["Enabled"] = false}
     Default = false,
     HoverText = "Better AntiVoid"
 })
-
-
