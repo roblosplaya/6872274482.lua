@@ -10578,13 +10578,24 @@ runFunction(function()
 end)
 
 runFunction(function()
-	FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+	local FramesMaxer = {Enabled = false}
+	FramesMaxer = GuiLibrary.ObjectsThatCanBeSaved.NebulawareWindow.Api.CreateOptionsButton({
 		Name = "FPSUnlocker",
+		HoverText = "Maxes out your Frames Per Second (FPS)",
 		Function = function(callback)
 			if callback then
-				setfpscap(36000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+				setfpscap(FramesMaxerAmount.Value)
+			else
+				setfpscap(60)
 			end
 		end
+	})
+	FramesMaxerAmount = FramesMaxer.CreateSlider({
+		Name = "Amount",
+		Min = 1,
+		Max = 9e9,
+		Function = function() end,
+		Default = 9e9
 	})
 end)
 
@@ -11303,3 +11314,96 @@ local OldAntiVoid = {["Enabled"] = false}
     Default = false,
     HoverText = "Better AntiVoid"
 })
+
+runFunction(function()
+    local RGBSwordOutline
+    RGBSwordOutline = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "SwordOutline",
+        Function = function(callback)
+            if callback then 
+                spawn(function()
+                    local cam = game.Workspace.CurrentCamera
+                    Connection = cam.Viewmodel.ChildAdded:Connect(function(v)
+                        highlight2 = Instance.new('Highlight')
+                        highlight2.Parent = v.Handle
+                        if v:FindFirstChild("Handle") then
+                            pcall(function()
+                                highlight2.FillTransparency = 1
+                                while wait() do
+                                    highlight2.OutlineColor = Color3.fromHSV(tick()%5/5,1,1)
+                                end
+                            end)
+                        end
+                    end)
+                    spawn(function()
+                        repeat task.wait() until unejected == true 
+                        EnabledOutlines = false
+                        if Connection ~= nil then
+                            if type(Connection) == "userdata" then
+                                Connection:Disconnect()
+                                Connection = nil
+                            end
+                        end
+                    end)
+                end)
+            else
+                EnabledOutlines = false
+                if Connection ~= nil then
+                    if type(Connection) == "userdata" then
+                        Connection:Disconnect()
+                        Connection = nil
+                    end
+                end
+            end
+        end
+    })
+end)
+
+local Host = {["Enabled"] = false}
+Host = GuiLibrary["ObjectsThatCanBeSaved"]["NebulawareWindow"]["Api"].CreateOptionsButton({
+    ["Name"] = "FakeCohost",
+    ["HoverText"] = "client sided cohost",
+    ["Function"] = function(callback)
+        if callback then
+            local v2 = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["game-core"].out)
+            local OfflinePlayerUtil = v2.OfflinePlayerUtil
+            local v6 = OfflinePlayerUtil.getPlayer(game.Players.LocalPlayer)
+            v6:SetAttribute("Cohost", true)
+        else
+            local v2 = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["game-core"].out)
+            local OfflinePlayerUtil = v2.OfflinePlayerUtil
+            local v6 = OfflinePlayerUtil.getPlayer(game.Players.LocalPlayer)
+            v6:SetAttribute("Cohost", false)
+        end
+    end
+})
+
+runFunction(function()
+	local NuhuhClip = {Enabled = false}
+	NuhuhClip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"]["CreateOptionsButton"]({
+		Name = "AntiNoclip",
+		HoverText = "no more noclip",
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat task.wait() until entityLibrary.isAlive
+					repeat task.wait()
+						if lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health > 0 then
+							if lplr.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
+								local block, pos = getPlacedBlock(lplr.character.HumanoidRootPart.Position + Vector3.new(0, -3, 0))
+								pos = pos * 3
+								if block and pos then
+									if (pos.Y + 8) >= lplr.Character.PrimaryPart.Position.Y then
+										local velocity = lplr.Character.PrimaryPart.Velocity
+										velocity = Vector2.new(velocity.X, velocity.Z)
+										lplr.Character.PrimaryPart.Velocity = Vector3.new(velocity.X, 0, velocity.Y)
+									end
+								end
+							end
+						end	
+					until not NuhuhClip.Enabled
+				end)
+			end
+		end
+	})
+end)
