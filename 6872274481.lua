@@ -10959,7 +10959,7 @@ end)
 
 runFunction(function()
     local MultiAura = {Enabled = false}
-    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "SemiMultiAura",
         Function = function(callback)
             if callback then
