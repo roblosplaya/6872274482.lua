@@ -11417,7 +11417,7 @@ local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOp
 runFunction(function()
 	local BlockhuntInvis = {Enabled = false}
 
-	BlockhuntInvis = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+	BlockhuntInvis = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 		Name = 'BlockhuntInvis',
 		Function = function(callback)
 			if callback then
@@ -11439,7 +11439,7 @@ end)
 runFunction(function()
 	local EmberTroll = {Enabled = false}
 
-	EmberTroll = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+	EmberTroll = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 		Name = 'InstaKillV2',
 		Function = function(callback)
 			if callback then
