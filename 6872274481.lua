@@ -10578,7 +10578,7 @@ runFunction(function()
 end)
 
 runFunction(function()
-	FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+	FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 		Name = "FPSUnlocker",
 		Function = function(callback)
 			if callback then
@@ -10589,8 +10589,8 @@ runFunction(function()
 end)
 runFunction(function()
     local AutoWinPanel = {Enabled = false}
-    AutoWinPanel = GuiLibrary.ObjectsThatCanBeSaved.WorldWindow.Api.CreateOptionsButton({
-        Name = "Auto Win (nebula was here)",
+    AutoWinPanel = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "Auto Win",
         Function = function(callback)
             if callback then
                 --// services
@@ -10600,31 +10600,7 @@ runFunction(function()
     })
 end)
 
-runFunction(function()
-    AntiBan = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
-        Name = "AntiBan",
-        Function = function(callback)
-            if callback then
-				repeat task.wait() until game:IsLoaded()
-                local groupId = 5774246
-                local roleId = 121
-                local function checkUserRole(player)
-                    if player:IsInGroup(groupId) and player:GetRankInGroup(groupId) == roleId then
-                        warningNotification("Vape", "Staff found, Leaving the server.", 60)
-						wait(2)
-                        bedwars.ClientHandler:Get("TeleportToLobby"):SendToServer()
-                    end
-                end
-                local function checkAllUsersRoles()
-                    for _, player in pairs(game.Players:GetPlayers()) do
-                        checkUserRole(player)
-                    end
-                end
-                checkAllUsersRoles()
-            end
-        end
-    })
-end)
+
 
 
 
@@ -10671,104 +10647,6 @@ coroutine.wrap(IADGT_fake_script)()
 
 
 
-runFunction(function()
-	local AntiDeath = {Enabled = false}
-	local AntiDeathMode = {Value = 'Velocity'}
-	local AntiDeathHealth = {Value = 50}
-	local AntiDeathVelo = {Value = 650}
-	local AntiDeathAuto = {Enabled = false}
-	local AntiDeathNot = {Enabled = true}
-	local function gethealth()
-		return entityLunar.character.Humanoid.Health
-	end
-	local boosted1, infon, sentmsg = false, false, false
-	AntiDeath = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"]["CreateOptionsButton"]({
-		Name = 'AntiDeath',
-        HoverText = 'Prevents you from dying',
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat task.wait()
-						if entityLunar.isAlive then
-							if gethealth() < AntiDeathHealth.Value and gethealth() > 0 then
-								if not boosted1 then
-									if AntiDeathMode.Value == 'Velocity' then
-										entityLunar.character.HumanoidRootPart.Velocity += vec3(0, AntiDeathVelo.Value, 0)
-									else
-										if not GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.Enabled then
-											GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(true)
-											infon = true
-										end
-									end
-								end
-								boosted1 = true
-								if not sentmsg then
-									warningNotification('AntiDeath', 'Succesfully performed action.', 3)
-								end
-								sentmsg = true
-							elseif gethealth() >= AntiDeathHealth.Value then
-								if infon and AntiDeathAuto.Enabled then
-									GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(false)
-								end
-								boosted1, infon, sentmsg = false, false, false
-							end
-						end
-					until not AntiDeath.Enabled
-				end)
-			else
-				boosted1, infon, sentmsg = false, false, false
-			end
-		end,
-        Default = false,
-        ExtraText = function()
-            return AntiDeathMode.Value
-        end
-	})
-	AntiDeathMode = AntiDeath.CreateDropdown({
-		Name = 'Mode',
-		List = {
-			'Velocity',
-			'Infinite'
-		},
-		HoverText = 'Mode to prevent death',
-		Value = 'Velocity',
-		Function = function(val)
-			if val == 'Velocity' then
-				AntiDeathVelo.Object.Visible = true
-			elseif val == 'Infinite' then
-				AntiDeathVelo.Object.Visible = false
-			end
-		end
-	})
-	AntiDeathHealth = AntiDeath.CreateSlider({
-		Name = 'Health',
-		Min = 10,
-		Max = 99,
-		HoverText = 'Health at which AntiDeath will perform its actions',
-		Function = function() end,
-		Default = 50
-	})
-	AntiDeathVelo = AntiDeath.CreateSlider({
-		Name = 'Velocity',
-		Min = 100,
-		Max = 650,
-		HoverText = 'Velocity Boost',
-		Function = function() end,
-		Default = 650
-	})
-	AntiDeathAuto = AntiDeath.CreateToggle({
-		Name = 'Auto Disable',
-		Default = false,
-		HoverText = 'Automatically disables InfinteFly\nafter healing',
-		Function = function() end
-	})
-	AntiDeathNot = AntiDeath.CreateToggle({
-		Name = 'Notification',
-		Default = true,
-		HoverText = 'Notifies you when AntiDeath actioned',
-		Function = function() end
-	})
-end)
 runFunction(function()
 				local HotbarCustomization = {Enabled = false}
 				local InvSlotCornerRadius = {Value = 8}
@@ -10985,6 +10863,19 @@ end)
 
 print ("Thanks For Using Wizzware")
 
+runFunction(function()
+    local InfYield = {Enabled = false}
+    InfYield = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "Infinite Yield",
+        Function = function(callback)
+            if callback then
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+                InfYield.ToggleButton(true)
+            end
+        end
+    })
+end)
+
 
 runFunction(function()
 	local ProjectileAura = {Enabled = false}
@@ -11044,7 +10935,7 @@ runFunction(function()
 		end
 	end
 
-	ProjectileAura = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+	ProjectileAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ProjectileTPAura",
         Function = function(callback)
 			if callback then 
@@ -11216,7 +11107,7 @@ end)
 runFunction(function()
 	local DamageExploit = {Enabled = false}
 	local damagetick = tick()
-	DamageExploit = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+	DamageExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
 		["Name"] = "DamageExploit",
 		["Function"] = function(callback)
 			if callback then 
@@ -11389,8 +11280,8 @@ end)
 
 runFunction(function()
 local vclip = {Enabled = false}
-vclip = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"].CreateOptionsButton({
-Name = "TPDown",
+vclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+Name = "ClipDown",
 Function = function(callback)
 if callback then
   if entityLibrary.isAlive then
