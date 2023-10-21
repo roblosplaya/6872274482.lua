@@ -10419,7 +10419,7 @@ if lplr.UserId == 4943216782 then
 end
 
 runFunction(function()
-    local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+    local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
         HoverText = "Makes speed check have no braincells",
         Function = function(callback)
@@ -10910,7 +10910,7 @@ end
 })
 
 runFunction(function()
-    local disabler2 = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+    local disabler2 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler2",
         HoverText = "Makes speed check retarded",
         Function = function(callback)
@@ -10935,7 +10935,7 @@ end)
 
 runFunction(function()
   local InfernalKill = {Enabled = false}
-InfernalKill = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+InfernalKill = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
     ["Name"] = "InstaKill",
     ["Function"] = function(callback)
         if callback then
@@ -10960,7 +10960,7 @@ end)
 
 
 runFunction(function()
-    local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+    local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler3",
         HoverText = "Makes Speed Check Fucking Retarded",
         Function = function(callback)
@@ -11274,7 +11274,7 @@ end)
 runFunction(function()
     local AnticheatBypass = {Enabled = false}
 	local AnticheatBypassMode = {Value = 'LookVector'}
-    AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved['BlatantWindow'].Api.CreateOptionsButton({
+    AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved['WizzwareWindow'].Api.CreateOptionsButton({
         Name = "PartialDisabler",
 		HoverText = 'Partially Bypasses Anticheat',
         Function = function(callback)
@@ -11330,7 +11330,7 @@ runFunction(function()
 end)
 
 runFunction(function()
-    disabledxd = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+    disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "SemiDisabler",
         Function = function(callback)
             if callback then
