@@ -10817,20 +10817,6 @@ end)
 print ("Thanks For Using Wizzware")
 
 runFunction(function()
-    local InfYield = {Enabled = false}
-    InfYield = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "Infinite Yield",
-        Function = function(callback)
-            if callback then
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-                InfYield.ToggleButton(false)
-            end
-        end
-    })
-end)
-
-
-runFunction(function()
 	local ProjectileAura = {Enabled = false}
 	local ProjectileAuraRange = {Value = 40}
 	local ProjectileAuraAim = {Enabled = false}
@@ -10889,7 +10875,7 @@ runFunction(function()
 	end
 
 	ProjectileAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "ProjectileTPAura",
+        Name = "BowTPAura",
         Function = function(callback)
 			if callback then 
 				AimPart = Instance.new("Part", workspace)
@@ -11172,9 +11158,10 @@ runFunction(function()
 		Function = function() end
 	})
 end)
+
 runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiDisabler",
+        Name = "Semi-Disabler",
         Function = function(callback)
             if callback then
                 local ReplicatedStorage = game:GetService("ReplicatedStorage")
