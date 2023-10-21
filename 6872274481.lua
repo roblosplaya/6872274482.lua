@@ -11275,14 +11275,14 @@ runFunction(function()
 end)
 
 runFunction(function()
-local TPclip = {Enabled = false}
-TPclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+local vclip = {Enabled = false}
+vclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
 Name = "ClipDown",
 Function = function(callback)
 if callback then
   if entityLibrary.isAlive then
 	entityLibrary.character.HumanoidRootPart.CFrame += Vector3.new(0, -7, 0)
-	 TPclip["ToggleButton"](false)
+	 vclip["ToggleButton"](false)
   end
 end
 end
@@ -11359,51 +11359,3 @@ runFunction(function()
     })
 end)
 
-local CoHost? = {["Enabled"] = false}
-CoHost? = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
-    ["Name"] = "FakeCohost",
-    ["HoverText"] = "client sided cohost",
-    ["Function"] = function(callback)
-        if callback then
-            local v2 = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["game-core"].out)
-            local OfflinePlayerUtil = v2.OfflinePlayerUtil
-            local v6 = OfflinePlayerUtil.getPlayer(game.Players.LocalPlayer)
-            v6:SetAttribute("Cohost", true)
-        else
-            local v2 = require(game:GetService("ReplicatedStorage")["rbxts_include"]["node_modules"]["@easy-games"]["game-core"].out)
-            local OfflinePlayerUtil = v2.OfflinePlayerUtil
-            local v6 = OfflinePlayerUtil.getPlayer(game.Players.LocalPlayer)
-            v6:SetAttribute("Cohost", false)
-        end
-    end
-})
-
-runFunction(function()
-	local VClip = {Enabled = false}
-	VClip = GuiLibrary["ObjectsThatCanBeSaved"]["BlatantWindow"]["Api"]["CreateOptionsButton"]({
-		Name = "AntiNoclip",
-		HoverText = "Prevents you from noclipping into the ground when landing from\nInfiniteFly etc. (Prevents being lagbacked using infinitefly)",
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat task.wait() until entityLibrary.isAlive
-					repeat task.wait()
-						if lplr.Character and lplr.Character:FindFirstChild("Humanoid") and lplr.Character.Humanoid.Health > 0 then
-							if lplr.Character.Humanoid.FloorMaterial ~= Enum.Material.Air then
-								local block, pos = getPlacedBlock(lplr.character.HumanoidRootPart.Position + Vector3.new(0, -3, 0))
-								pos = pos * 3
-								if block and pos then
-									if (pos.Y + 8) >= lplr.Character.PrimaryPart.Position.Y then
-										local velocity = lplr.Character.PrimaryPart.Velocity
-										velocity = Vector2.new(velocity.X, velocity.Z)
-										lplr.Character.PrimaryPart.Velocity = Vector3.new(velocity.X, 0, velocity.Y)
-									end
-								end
-							end
-						end	
-					until not VClip.Enabled
-				end)
-			end
-		end
-	})
-end)
