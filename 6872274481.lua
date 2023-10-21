@@ -10558,7 +10558,7 @@ end)
 	runFunction(function()
 		local oldEngineCap
 		local EngineUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-			Name = 'FpsUnlocker',
+			Name = 'FPSUnlocker',
 			Function = function(callback)
 				if callback then
 					if getfpscap then
@@ -11436,37 +11436,6 @@ runFunction(function()
 	})
 end)
 
-runFunction(function()
-		local NoPing = {Enabled = false}
-		local oldCreatePing
-		local oldCooldown
-	
-		NoPing = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
-			Name = 'NoPing',
-			Function = function(callback)
-				if callback then
-					task.spawn(function()
-						oldCreatePing = bedwars.PingController.createIndicator
-						bedwars.PingController.createIndicator = blankFunction
-						local pingConstants = debug.getupvalue(bedwars.PingController.ping, 2)
-						oldCooldown = pingConstants.PING_COOLDOWN
-						pingConstants.PING_COOLDOWN = math.huge
-					end)
-				else
-					if oldCreatePing then
-						bedwars.PingController.createIndicator = oldCreatePing
-					end
-					if oldCooldown then
-						xpcall(function()
-							debug.getupvalue(bedwars.PingController.ping, 2).PING_COOLDOWN = oldCooldown
-						end, function(err)
-							exceptionHandler:throw('PingController.ping upvalue (2) cannot be reset')
-						end)
-					end
-				end
-			end,
-			Default = true
-		})
-	end)
+
 
 
