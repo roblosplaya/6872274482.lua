@@ -10912,20 +10912,7 @@ runFunction(function()
     })
 end)
 
-runFunction(function()
-local vclip = {Enabled = false}
-vclip = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
-Name = "ClipDown",
-Function = function(callback)
-if callback then
-  if entityLibrary.isAlive then
-	entityLibrary.character.HumanoidRootPart.CFrame += Vector3.new(0, -7, 0)
-	 vclip["ToggleButton"](false)
-  end
-end
-end
-})
-end)
+
 
 local OldAntiVoid = {["Enabled"] = false}
       OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
