@@ -10603,7 +10603,7 @@ runFunction(function()
 					end
 				end
 				HotbarCustomization = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-					Name = "CustomHotbar",
+					Name = "HotbarMod",
 					HoverText = "Customize the ugly default hotbar to your liking.",
 					Approved = true,
 					Function = function(callback)
@@ -10976,4 +10976,49 @@ game.Workspace.Gravity = 196.2
 		})
 	end)
 
+runFunction(function()
+	local LagbackDetector = {Enabled = false}
+	local LagbackDetectorDur = {Value = 5}
+	local sendlagback, sendlagback2 = true, false
+	LagbackDetector = GuiLibrary.ObjectsThatCanBeSaved['WizzwareWindow'].Api.CreateOptionsButton({
+		Name = 'LagbackDetector',
+        HoverText = 'Detects when you lagback',
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					sendlagback, sendlagback2 = true, false
+					repeat task.wait()
+						if entityLunar.isAlive then
+							if isnetworkowner(lplr.Character.HumanoidRootPart) then
+								if sendlagback2 then
+									warningNotification2('LagbackDetector', 'You are free to go', LagbackDetectorDur.Value)
+								end
+								sendlagback2 = false
+							elseif not isnetworkowner(lplr.Character.HumanoidRootPart) then
+								if sendlagback then
+									warningNotification2('LagbackDetector', 'Lagbacked, please stand still', LagbackDetectorDur.Value)
+								end
+								sendlagback2 = true
+								sendlagback = false
+								task.wait(LagbackDetectorDur.Value)
+								sendlagback = true
+							end
+						end
+					until not LagbackDetector.Enabled
+				end)
+			else
+				sendlagback, sendlagback2 = true, false
+			end
+		end,
+        Default = false
+	})
+	LagbackDetectorDur = LagbackDetector.CreateSlider({
+		Name = 'Duration',
+		Min = 1,
+		Max = 10,
+		HoverText = 'Duration of the notification',
+		Function = function() end,
+		Default = 5
+	})
+end)
 
