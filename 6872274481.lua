@@ -10453,7 +10453,7 @@ runFunction(function()
 	end
 
 	BedTp = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-		Name = "InstantBedTP",
+		Name = "BedTP",
 		Function = function(callback)
 			if callback then
 				lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
@@ -10502,7 +10502,7 @@ runFunction(function()
     end
 
     PlayerTp = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "InstantPlayerTP",
+        Name = "PlayerTP",
         Function = function(callback)
             if callback then
                 lplr.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
@@ -11468,3 +11468,47 @@ runFunction(function()
 	})
 end)
 
+local PartyPopper = {Enabled = false}
+PartyPopper = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
+	Name = "PartyPopper",
+	Function = function(callback)
+		if callback then 
+			task.spawn(function()	
+				repeat task.wait(0.3) 
+				repstorage["events-@easy-games/game-core:shared/game-core-networking@getEvents.Events"].useAbility:FireServer("PARTY_POPPER")
+				until (not PartyPopper.Enabled)
+			end)
+		end
+	end
+})
+
+local DragonBreath = {Enabled = false}
+DragonBreath = GuiLibrary["ObjectsThatCanBeSaved"]["RenderWindow"]["Api"].CreateOptionsButton({
+	Name = "DragonBreath",
+	Function = function(callback)
+		if callback then 
+			task.spawn(function()	
+				repeat task.wait(0.3) 
+repstorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DragonBreath"):FireServer({player = lplr})
+				until (not DragonBreath.Enabled)
+			end)
+		end
+	end
+})
+
+local jumpfly = {Enabled = false}
+jumpfly = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+	["Name"] = "FunnyFly",
+	["Function"] = function(callback)
+		if callback then 
+			task.spawn(function()
+game.Workspace.Gravity = 24.025
+repeat
+lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 5, 0)
+task.wait(0.4)
+until (not jumpfly.Enabled)
+game.Workspace.Gravity = 196.2
+			end)
+		end
+	end,
+})
