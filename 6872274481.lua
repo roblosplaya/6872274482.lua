@@ -11123,18 +11123,18 @@ runFunction(function()
 						local scytheitem1 = getItemNear'iron_scythe' -- not working in the table
 						if scytheitem or scytheitem1 and lplr.Character.HandInvItem.Value == scytheitem.tool or lplr.Character.HandInvItem.Value == scytheitem1.tool then
 							if AnticheatBypassMode.Value == 'LookVector' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entityLunar.character.HumanoidRootPart.CFrame.LookVector})
+								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.LookVector})
 							elseif AnticheatBypassMode.Value == 'MoveDirection' then
-								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entityLunar.character.HumanoidRootPart.CFrame.MoveDirection})
+								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = entity.character.HumanoidRootPart.CFrame.MoveDirection})
 							else
 								bedwars.ClientHandler:Get'ScytheDash':SendToServer({direction = vec3(9e9, 9e9, 9e9)})
 							end
 							if GuiLibrary.ObjectsThatCanBeSaved.HeadlessOptionsButton.Api.Enabled then
-								if entityLunar.isAlive and entityLunar.character.HumanoidRootPart.Transparency ~= 0 then
+								if entity.isAlive and entity.character.HumanoidRootPart.Transparency ~= 0 then
 									bedwarsStore.scythe = tick() + 2
 								end
 							else
-								if entityLunar.isAlive and entityLunar.character.Head.Transparency ~= 0 then
+								if entity.isAlive and entity.character.Head.Transparency ~= 0 then
 									bedwarsStore.scythe = tick() + 2
 								end
 							end
@@ -11160,7 +11160,6 @@ runFunction(function()
 		Function = function() end
 	})
 end)
-
 runFunction(function()
     disabledxd = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "SemiDisabler",
