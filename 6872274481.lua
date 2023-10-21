@@ -10587,21 +10587,6 @@ runFunction(function()
 		end
 	})
 end)
-runFunction(function()
-    local AutoWinPanel = {Enabled = false}
-    AutoWinPanel = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "Auto Win",
-        Function = function(callback)
-            if callback then
-                --// services
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/6872274482.lua/main/Autowin.lua"))()
-            end
-        end
-    })
-end)
-
-
-
 
 
 local ScreenGui = Instance.new("ScreenGui")
