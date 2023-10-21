@@ -10555,16 +10555,28 @@ runFunction(function()
     })
 end)
 
-runFunction(function()
-	FPSUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-		Name = "FPSUnlocker",
-		Function = function(callback)
-			if callback then
-				setfpscap(36000000000000000000000000000000000000000000000000000000000000000000000000000000000000000)
+	runFunction(function()
+		local oldEngineCap
+		local EngineUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+			Name = 'FpsUnlocker',
+			Function = function(callback)
+				if callback then
+					if getfpscap then
+						oldEngineCap = getfpscap()
+					else
+						oldEngineCap = 60
+					end
+					setfpscap(360) -- basically just unlocks your engine update speed (uwp caps your fps to your monitor's framerate :skull:)
+				else
+					if oldEngineCap then
+						setfpscap(oldEngineCap)
+						oldEngineCap = nil
+					end
+				end
 			end
-		end
-	})
-end)
+		})
+	end)
+
 
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -11402,6 +11414,59 @@ local disabler420 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOp
     end
 })
 
+runFunction(function()
+	local BlockhuntInvis = {Enabled = false}
 
+	BlockhuntInvis = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+		Name = 'BlockhuntInvis',
+		Function = function(callback)
+			if callback then
+				task.spawn(function()
+					repeat task.wait() until not BlockhuntInvis.Enabled or bedwarsStore.matchState ~= 0
+					if BlockhuntInvis.Enabled then
+						repeat
+							task.wait(0.3)
+							if not BlockhuntInvis.Enabled then break end
+							bedwars.ClientHandler:Get('BHHiderInvisibility'):SendToServer()
+						until not BlockhuntInvis.Enabled
+					end
+				end)
+			end
+		end
+	})
+end)
+
+runFunction(function()
+		local NoPing = {Enabled = false}
+		local oldCreatePing
+		local oldCooldown
+	
+		NoPing = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+			Name = 'NoPing',
+			Function = function(callback)
+				if callback then
+					task.spawn(function()
+						oldCreatePing = bedwars.PingController.createIndicator
+						bedwars.PingController.createIndicator = blankFunction
+						local pingConstants = debug.getupvalue(bedwars.PingController.ping, 2)
+						oldCooldown = pingConstants.PING_COOLDOWN
+						pingConstants.PING_COOLDOWN = math.huge
+					end)
+				else
+					if oldCreatePing then
+						bedwars.PingController.createIndicator = oldCreatePing
+					end
+					if oldCooldown then
+						xpcall(function()
+							debug.getupvalue(bedwars.PingController.ping, 2).PING_COOLDOWN = oldCooldown
+						end, function(err)
+							exceptionHandler:throw('PingController.ping upvalue (2) cannot be reset')
+						end)
+					end
+				end
+			end,
+			Default = true
+		})
+	end)
 
 
