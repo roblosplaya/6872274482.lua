@@ -10834,7 +10834,7 @@ end)
 runFunction(function()
     local howlexploit = {Enabled = false}
     howlexploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "howl exploit",
+        Name = "Howl Exploit",
         Function = function(callback)
             if callback then
                 repeat
