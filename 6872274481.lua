@@ -10830,3 +10830,24 @@ runFunction(function()
         end
     })
 end)
+
+runFunction(function()
+    local howlexploit = {Enabled = false}
+    howlexploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "howl exploit",
+        Function = function(callback)
+            if callback then
+                repeat
+                    task.wait()
+                    local args = {
+                        [1] = {
+                            ["player"] = game:GetService("Players").LocalPlayer
+                        }
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("UseWerewolfHowlAbility"):InvokeServer(unpack(args))
+                until (not howlexploit.Enabled)
+            end
+        end
+    })
+end)
