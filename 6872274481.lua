@@ -10812,3 +10812,122 @@ runFunction(function()
         end
     })
 end)
+
+	runFunction(function()
+                local Autowin = {Enabled = false}
+				local AutowinNotification = {Enabled = true}
+				local bedtween
+				local playertween
+                Autowin = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+                    Name = "AutoWin",
+					ExtraText = function() return bedwarsStore.queueType :find("5v5") and "BedShield" or "Normal" end,
+                    Function = function(callback)
+                        if callback then
+                            task.spawn(function()
+								if bedwarsStore.matchState == 0 then repeat task.wait() until bedwarsStore.matchState ~= 0 or not Autowin.Enabled end
+								if not shared.VapeFullyLoaded then repeat task.wait() until shared.VapeFullyLoaded or not Autowin.Enabled end
+								if not Autowin.Enabled then return end
+								vapeAssert(not bedwarsStore.queueType:find("skywars"), "AutoWin", "Skywars not supported.", 7, true, true, "Autowin")
+								if isAlive() and FindTeamBed() then
+									lplr.Character.Humanoid.Health = 0
+									lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+								end
+								table.insert(Autowin.Connections, runService.Heartbeat:Connect(function()
+									pcall(function()
+									if not isnetworkowner(lplr.Character.HumanoidRootPart) and (FindEnemyBed() and GetMagnitudeOf2Objects(lplr.Character.HumanoidRootPart, FindEnemyBed()) > 75 or not FindEnemyBed()) then
+										if isAlive() and FindTeamBed() and Autowin.Enabled and not NebulawareStore.GameFinished then
+											lplr.Character.Humanoid.Health = 0
+											lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+										end
+									end
+								end)
+								end))
+								table.insert(Autowin.Connections, lplr.CharacterAdded:Connect(function()
+									if not isAlive() then repeat task.wait() until isAlive() end
+									local bed = FindEnemyBed()
+									if bed and (bed:GetAttribute("BedShieldEndTime") and bed:GetAttribute("BedShieldEndTime") < workspace:GetServerTimeNow() or not bed:GetAttribute("BedShieldEndTime")) then
+									bedtween = tweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.65, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0), {CFrame = CFrame.new(bed.Position) + Vector3.new(0, 10, 0)})
+									task.wait(0.1)
+									bedtween:Play()
+									bedtween.Completed:Wait()
+									task.spawn(function()
+									task.wait(1.5)
+									local magnitude = GetMagnitudeOf2Objects(lplr.Character.HumanoidRootPart, bed)
+									if magnitude >= 50 and FindTeamBed() and Autowin.Enabled then
+										lplr.Character.Humanoid.Health = 0
+										lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+									end
+									end)
+									if AutowinNotification.Enabled then
+										local bedname = NebulawareStore.bedtable[bed] or "unknown"
+										task.spawn(InfoNotification, "AutoWin", "Destroying "..bedname:lower().." team's bed", 5)
+									end
+									if not GuiLibrary.ObjectsThatCanBeSaved.NukerOptionsButton.Api.Enabled then
+										GuiLibrary.ObjectsThatCanBeSaved.NukerOptionsButton.Api.ToggleButton(false)
+									end
+									repeat task.wait() until FindEnemyBed() ~= bed or not isAlive()
+									if FindTarget(45, bedwarsStore.blockRaycast).RootPart and isAlive() then
+										if AutowinNotification.Enabled then
+											local team = NebulawareStore.bedtable[bed] or "unknown"
+											task.spawn(InfoNotification, "AutoWin", "Killing "..team:lower().." team's teamates", 5)
+										end
+										repeat
+										local target = FindTarget(45, bedwarsStore.blockRaycast)
+										if not target.RootPart then break end
+										playertween = tweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.30), {CFrame = target.RootPart.CFrame + Vector3.new(0, 3, 0)})
+										playertween:Play()
+										task.wait()
+										until not FindTarget(45, bedwarsStore.blockRaycast).RootPart or not Autowin.Enabled or not isAlive()
+									end
+									if isAlive() and FindTeamBed() and Autowin.Enabled then
+										lplr.Character.Humanoid.Health = 0
+										lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+									end
+									elseif FindTarget(nil, bedwarsStore.blockRaycast).RootPart then
+										task.wait()
+										local target = FindTarget(nil, bedwarsStore.blockRaycast)
+										playertween = tweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(GetMagnitudeOf2Objects(lplr.Character.HumanoidRootPart, target.RootPart) / 23.4 / 35, Enum.EasingStyle.Linear), {CFrame = target.RootPart.CFrame + Vector3.new(0, 3, 0)})
+										playertween:Play()
+										if AutowinNotification.Enabled then
+											task.spawn(InfoNotification, "AutoWin", "Killing "..target.Player.DisplayName.." ("..(target.Player.Team and target.Player.Team.Name or "neutral").." Team)", 5)
+										end
+										playertween.Completed:Wait()
+										if not Autowin.Enabled then return end
+											if FindTarget(50, bedwarsStore.blockRaycast).RootPart and isAlive() then
+												repeat
+												target = FindTarget(50, bedwarsStore.blockRaycast)
+												if not target.RootPart or not isAlive() then break end
+												playertween = tweenService:Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.30), {CFrame = target.RootPart.CFrame + Vector3.new(0, 3, 0)})
+												playertween:Play()
+												task.wait()
+												until not FindTarget(50, bedwarsStore.blockRaycast).RootPart or not Autowin.Enabled or not isAlive()
+											end
+										if isAlive() and FindTeamBed() and Autowin.Enabled then
+											lplr.Character.Humanoid.Health = 0
+											lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+										end
+									else
+									if NebulawareStore.GameFinished then return end
+									lplr.Character.Humanoid.Health = 0
+									lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
+									end
+								end))
+								table.insert(Autowin.Connections, lplr.CharacterAdded:Connect(function()
+									if not isAlive() then repeat task.wait() until isAlive() end
+									if not NebulawareStore.GameFinished then return end
+									local oldpos = lplr.Character.HumanoidRootPart.CFrame
+									repeat 
+									lplr.Character.HumanoidRootPart.CFrame = oldpos
+									task.wait()
+									until not isAlive() or not Autowin.Enabled
+								end))
+							end)
+						else
+							pcall(function() playertween:Cancel() end)
+							pcall(function() bedtween:Cancel() end)
+                        end
+                    end,
+                    HoverText = "beta autowin"
+				})
+			end)
+
