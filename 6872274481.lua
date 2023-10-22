@@ -10841,22 +10841,5 @@ runFunction(function()
     })
 end)
 
-runFunction(function()
-    local VampireExploit4U = {Enabled = false}
-    VampireExploit4U = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "VampireExploit4U",
-        Function = function(callback)
-            if callback then 
-                task.spawn(function()
-                    table.insert(VampireExploit.Connections, lplr.CharacterAdded:Connect(function()
-                        task.wait(1)
-                        bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr})
-                    end))
-                    bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr}) 
-                end)
-            end
-        end
-    })
-end)
 
 
