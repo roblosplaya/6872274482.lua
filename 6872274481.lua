@@ -10700,27 +10700,6 @@ runFunction(function()
 end)
 
 
-	runFunction(function()
-		local HostPanelExploit = {Enabled = false}
-		local oldhostattribute = nil
-		HostPanelExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-			Name = "FakeCohost",
-			HoverText = "yes real host panel no client side!1!1! 1000%",
-			Function = function(callback)
-				task.spawn(function()
-					if oldhostattribute == nil then 
-						oldhostattribute = (lplr:GetAttribute("Cohost") or lplr:GetAttribute("Host")) and true or false
-					end
-					if not callback and bedwars.ClientStoreHandler:getState().Game.customMatch and oldhostattribute then 
-						return
-					end
-					lplr:SetAttribute("Cohost", callback)
-				end)
-			end
-		})
-	end)
-
-
 runFunction(function()
     local disabler12 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
