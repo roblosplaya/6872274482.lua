@@ -10957,4 +10957,15 @@ runFunction(function()
 	end)         
 end)
 
-loadstring(game:HttpGet('https://raw.githubusercontent.com/roblosplaya/6872274482.lua/main/MakingFunnies'))()
+runFunction(function()
+    local MultiAura = {Enabled = false}
+    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "MultiAura",
+        Function = function(callback)
+            if callback then
+                --// services
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/6872274482.lua/main/MakingFunnies"))()
+            end
+        end
+    })
+end)
