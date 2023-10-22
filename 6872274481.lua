@@ -10700,7 +10700,7 @@ end)
 
 
 runFunction(function()
-    local disabler12 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+    local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
         HoverText = "Makes speed check have no braincells",
         Function = function(callback)
@@ -10724,7 +10724,7 @@ runFunction(function()
 end)
 
 runFunction(function()
-    local disabler122 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+    local disabler2 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler2",
         HoverText = "Makes speed check have no brain",
         Function = function(callback)
@@ -10748,7 +10748,7 @@ runFunction(function()
 end)
 
 runFunction(function()
-    local disabler1222 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+    local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler3",
         HoverText = "Ac = Nuh uh",
         Function = function(callback)
@@ -10836,6 +10836,24 @@ runFunction(function()
             if callback then
                 --Dont u dare skid1!111!!
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
+            end
+        end
+    })
+end)
+
+runFunction(function()
+    local VampireExploit4U = {Enabled = false}
+    VampireExploit4U = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "VampireExploit4U",
+        Function = function(callback)
+            if callback then 
+                task.spawn(function()
+                    table.insert(VampireExploit.Connections, lplr.CharacterAdded:Connect(function()
+                        task.wait(1)
+                        bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr})
+                    end))
+                    bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr}) 
+                end)
             end
         end
     })
