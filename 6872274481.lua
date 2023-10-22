@@ -10813,3 +10813,20 @@ runFunction(function()
     })
 end)
 
+runFunction(function()
+    local VampireExploit = {Enabled = false}
+    VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "VampireExploit",
+        Function = function(callback)
+            if callback then 
+                task.spawn(function()
+                    table.insert(VampireExploit.Connections, lplr.CharacterAdded:Connect(function()
+                        task.wait(1)
+                        bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr})
+                    end))
+                    bedwars.ClientHandler:Get("CursedCoffinApplyVampirism"):SendToServer({player = lplr}) 
+                end)
+            end
+        end
+    })
+end)
