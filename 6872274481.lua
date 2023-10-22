@@ -10937,4 +10937,23 @@ runFunction(function()
 		["HoverText"] = "Tp To Closest Bed | Works in 30v30 😱"
 	})
 end)
+runFunction(function()
+	InfiniteJump = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+		Name = "InfiniteJump",
+		Function = function(callback)
+			if callback then
+
+			end
+		end
+	})
+	game:GetService("UserInputService").JumpRequest:Connect(function()
+		if not InfiniteJump.Enabled then return end
+		local localPlayer = game:GetService("Players").LocalPlayer
+		local character = localPlayer.Character
+		if character and character:FindFirstChildOfClass("Humanoid") then
+			local humanoid = character:FindFirstChildOfClass("Humanoid")
+			humanoid:ChangeState("Jumping")
+		end
+	end)         
+end)
 
