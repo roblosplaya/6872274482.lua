@@ -10700,46 +10700,6 @@ runFunction(function()
 end)
 
 
-runFunction(function()
-	local BlockhuntInvis = {Enabled = false}
-
-	BlockhuntInvis = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-		Name = 'BlockhuntInvis',
-		Function = function(callback)
-			if callback then
-				task.spawn(function()
-					repeat task.wait() until not BlockhuntInvis.Enabled or bedwarsStore.matchState ~= 0
-					if BlockhuntInvis.Enabled then
-						repeat
-							task.wait(0.3)
-							if not BlockhuntInvis.Enabled then break end
-							bedwars.ClientHandler:Get('BHHiderInvisibility'):SendToServer()
-						until not BlockhuntInvis.Enabled
-					end
-				end)
-			end
-		end
-	})
-end)
-
-
-local jumpfly = {Enabled = false}
-jumpfly = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-	["Name"] = "FunnyFly",
-	["Function"] = function(callback)
-		if callback then 
-			task.spawn(function()
-game.Workspace.Gravity = 24.025
-repeat
-lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 5, 0)
-task.wait(0.4)
-until (not jumpfly.Enabled)
-game.Workspace.Gravity = 196.2
-			end)
-		end
-	end,
-})
-
 	runFunction(function()
 		local HostPanelExploit = {Enabled = false}
 		local oldhostattribute = nil
@@ -10841,6 +10801,5 @@ game:GetService('RunService').RenderStepped:Connect(function()
     }
     game:GetService("ReplicatedStorage").rbxts_include.node_modules["@rbxts"].net.out._NetManaged.ScytheDash:FireServer(unpack(args))
 end)
-
 
 
