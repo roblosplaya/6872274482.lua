@@ -10964,7 +10964,7 @@ runFunction(function()
         Function = function(callback)
             if callback then
                 --// services
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/vapeprivatereal/main/vapeprivate"))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/6872274482.lua/main/MakingFunnies.lua"))()
             end
         end
     })
