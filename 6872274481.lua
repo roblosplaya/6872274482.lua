@@ -10851,3 +10851,219 @@ runFunction(function()
         end
     })
 end)
+
+local anticheat = {["Enabled"] = false}
+    anticheat = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
+        ["Name"] = "FloatDisabler",
+        ["HoverText"] = "Idk if work",
+        ["Function"] = function(callback)
+            if callback then
+                            print("Still working on this do not expect it to work.")
+                            local players = game:GetService("Players")
+                local player = players.LocalPlayer
+                local character = player.Character or player.CharacterAdded:Wait()
+                local humanoid = character:WaitForChild("Humanoid")
+
+                for _, track in ipairs(humanoid:GetPlayingAnimationTracks()) do
+                 track:Stop()
+                            end
+            else
+                print("Disabled!")
+            end
+        end 
+    })
+
+runFunction(function()
+    local Disabler = {Enabled = false}
+	local DisablerMode = {Value = "MoveDirection"}
+	local DisablerMissing = {Value = "Continue"}
+	local DisablerNotify = {Value = "Vape"}
+	local DisablerDuration = {Value = 5}
+	local DisablerSpeedVal = {Value = 90}
+	local DisablerSpeed = {Enabled = true}
+	local DisablerNotification = {Enabled = true}
+	local DisablerTable = {
+		Values = {
+			Duration = DisablerDuration.Value,
+			MainSpeed = DisablerSpeedVal.Value * 1000 + 9.999
+		},
+		Messages = {
+			Title = "Pov: bedwars destroyer :skull: ",
+			Context1 = "Hold the Scythe in your hand!",
+			Context2 = "Scythe not found!",
+			Context3 = "[Disabler] Hold the Scythe in your hand!",
+			Context4 = "[Disabler] Scythe not found!"
+		}
+	}
+	local SendNotify
+	local NoDisable
+	local HeartbeatConnection
+	local RenderSteppedConnection
+	local function getRenderStepped()
+		if DisablerMode.Value == "MoveDirection" then
+			game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer({
+				direction = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.MoveDirection * 10000
+			})
+		elseif DisablerMode.Value == "LookVector" then
+			game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.ScytheDash:FireServer({
+				direction = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame.LookVector * 10000
+			})
+		end
+	end
+	local HeartBeatConnect = tick()
+	local function getHeartBeat()
+		local HeartBeatConnect2 = tick()
+		local Value = HeartBeatConnect2 - (HeartBeatConnect2 - HeartBeatConnect <= 999 and 0 or 999)
+		HeartBeatConnect = math.max(HeartBeatConnect,Value)
+	end
+	Disabler = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "PartialDisabler",
+		HoverText = "Disables the anticheat using scythe",
+        Function = function(callback)
+            if callback then
+				SendNotify = true
+				NoDisable = true
+				task.spawn(function()
+					repeat
+						task.wait()
+						RenderSteppedConnection = game:GetService("RunService").RenderStepped:Connect(getRenderStepped)
+						HeartbeatConnection = game:GetService("RunService").Heartbeat:Connect(getHeartBeat)
+						local item = getItemNear("scythe")
+						repeat task.wait() until item
+						if item and lplr.Character.HandInvItem.Value == item.tool and bedwars.CombatController then
+							if DisablerMode.Value == "MoveDirection" then
+								if DisablerSpeed.Enabled then
+									bedwars.ClientHandler:Get("ScytheDash"):SendToServer({
+										direction = lplr.Character.HumanoidRootPart.CFrame.MoveDirection * DisablerTable.Values.MainSpeed
+									})
+								else
+									bedwars.ClientHandler:Get("ScytheDash"):SendToServer({
+										direction = lplr.Character.HumanoidRootPart.CFrame.MoveDirection
+									})
+								end
+							elseif DisablerMode.Value == "LookVector" then
+								if DisablerSpeed.Enabled then
+									bedwars.ClientHandler:Get("ScytheDash"):SendToServer({
+										direction = lplr.Character.HumanoidRootPart.CFrame.LookVector * DisablerTable.Values.MainSpeed
+									})
+								else
+									bedwars.ClientHandler:Get("ScytheDash"):SendToServer({
+										direction = lplr.Character.HumanoidRootPart.CFrame.LookVector
+									})
+								end
+							end
+							if entityLibrary.isAlive and entityLibrary.character.Head.Transparency ~= 0 then
+								bedwarsStore.scythe = tick() + 1
+							end
+						elseif item and lplr.Character.HandInvItem.Value ~= item.tool and bedwars.CombatController then
+							if SendNotify then
+								if DisablerNotify.Value == "Vape" then
+									warningNotification(DisablerTable.Messages.Title,DisablerTable.Messages.Context1,DisablerTable.Values.Duration)
+								elseif DisablerNotify.Value == "Print" then
+									print(DisablerTable.Messages.Context3)
+								elseif DisablerNotify.Value == "Warn" then
+									warn(DisablerTable.Messages.Context3)
+								elseif DisablerNotify.Value == "Combined" then
+									warningNotification(DisablerTable.Messages.Title,DisablerTable.Messages.Context1,DisablerTable.Values.Duration)
+									print(DisablerTable.Messages.Context3)
+									warn(DisablerTable.Messages.Context3)
+								end
+								SendNotify = false
+							end
+							if DisablerMissing.Value == "Continue" then
+								task.wait(DisablerTable.Values.Duration)
+								SendNotify = true
+								NoDisable = true
+							elseif DisablerMissing.Value == "Disable" then
+								NoDisable = false
+							end
+							if not NoDisable then
+								Disabler.ToggleButton(false)
+								return
+							end
+						elseif not item then
+							if DisablerNotify.Value == "Vape" then
+								warningNotification(DisablerTable.Messages.Title,DisablerTable.Messages.Context2,DisablerTable.Values.Duration)
+							elseif DisablerNotify.Value == "Print" then
+								print(DisablerTable.Messages.Context4)
+							elseif DisablerNotify.Value == "Warn" then
+								warn(DisablerTable.Messages.Context4)
+							elseif DisablerNotify.Value == "Combined" then
+								warningNotification(DisablerTable.Messages.Title,DisablerTable.Messages.Context2,DisablerTable.Values.Duration)
+								print(DisablerTable.Messages.Context4)
+								warn(DisablerTable.Messages.Context4)
+							end
+							Disabler.ToggleButton(false)
+							return
+						end
+					until not Disabler.Enabled
+				end)
+			else
+				HeartbeatConnection:Disconnect()
+				RenderSteppedConnection:Disconnect()
+            end
+        end,
+		ExtraText = function()
+			return DisablerMode.Value
+		end
+    })
+	DisablerMode = Disabler.CreateDropdown({
+		Name = "Mode",
+		List = {
+			"MoveDirection",
+			"LookVector"
+		},
+		HoverText = "Disabler Mode",
+		Function = function() end,
+	})
+	DisablerMissing = Disabler.CreateDropdown({
+		Name = "Missing Scythe",
+		List = {
+			"Continue",
+			"Disable"
+		},
+		HoverText = "Actions that will occur when the Scythe is missing",
+		Function = function() end,
+	})
+	DisablerNotify = Disabler.CreateDropdown({
+		Name = "Notification",
+		List = {
+			"Vape",
+			"Print",
+			"Warn",
+			"Combined"
+		},
+		HoverText = "Notification that will be displayed MW",
+		Function = function() end,
+	})
+	DisablerDuration = Disabler.CreateSlider({
+		Name = "Duration",
+		Min = 1,
+		Max = 10,
+		HoverText = "Notification's Duration MW",
+		Function = function() end,
+		Default = 5
+	})
+	DisablerSpeedVal = Disabler.CreateSlider({
+		Name = "Speed",
+		Min = 1,
+		Max = 100,
+		HoverText = "Direction Speed MW",
+		Function = function() end,
+		Default = 90
+	})
+	DisablerSpeed = Disabler.CreateToggle({
+		Name = "Speed",
+		Default = true,
+		HoverText = "Adds speed to the direction MW",
+		Function = function() end,
+	})
+	DisablerNotification = Disabler.CreateToggle({
+		Name = "Notification",
+		Default = true,
+		HoverText = "Notifies you when certain actions happen MW",
+		Function = function() end,
+	})
+end)
+
+
