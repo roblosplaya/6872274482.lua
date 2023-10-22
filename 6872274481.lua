@@ -10834,7 +10834,7 @@ runFunction(function()
         Name = "VampireExploit",
         Function = function(callback)
             if callback then
-                --Ok
+                --Dont u dare skid1!111!!
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
             end
         end
