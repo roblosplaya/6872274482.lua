@@ -10587,3 +10587,27 @@ runFunction(function()
 	end)         
 end)
 
+runFunction(function()
+    local MultiAura = {Enabled = false}
+    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "SemiMultiAura",
+        Function = function(callback)
+            if callback then
+                --credit to nebula ig
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/MakingFunnies.lua"))()
+            end
+        end
+    })
+end)
+
+runFunction(function()
+    local VampireExploit = {Enabled = false}
+    VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "VampireExploit",
+        Function = function(callback)
+            if callback then
+                --Dont u dare skid1!111!!
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
+            end
+        end
+    })
