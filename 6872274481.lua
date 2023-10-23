@@ -10567,13 +10567,3 @@ runFunction(function()
     })
 end)
 
-runFunction(function()
-    local VampireExploit = {Enabled = false}
-    VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "VampireExploit",
-        Function = function(callback)
-            if callback then
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua", true))()
-            end
-        end
-    })
