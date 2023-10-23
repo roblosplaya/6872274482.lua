@@ -10466,7 +10466,7 @@ runFunction(function()
 					end
 				end
 				HotbarCustomization = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-					Name = "HotbarMod",
+					Name = "HotbarCustomization",
 					HoverText = "Customize the ugly default hotbar to your liking.",
 					Approved = true,
 					Function = function(callback)
