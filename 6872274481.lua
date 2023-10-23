@@ -10623,7 +10623,11 @@ InfernalKill = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptions
     })
 end)
 
+
+
 print ("Thanks For Using Wizzware
+
+
 
 local OldAntiVoid = {["Enabled"] = false}
       OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
@@ -10747,7 +10751,7 @@ end)
 runFunction(function()
     local disabler3 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler3",
-        HoverText = "Ac = Nuh uh",
+        HoverText = "Ac Nuh uh",
         Function = function(callback)
             if callback then
                 task.spawn(function()
