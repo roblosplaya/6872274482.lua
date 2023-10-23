@@ -10588,18 +10588,6 @@ runFunction(function()
 end)
 
 runFunction(function()
-    local MultiAura = {Enabled = false}
-    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiMultiAura",
-        Function = function(callback)
-            if callback then
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/MakingFunnies.lua", true))()
-            end
-        end
-    })
-end)
-
-runFunction(function()
     local VampireExploit = {Enabled = false}
     VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "VampireExploit",
