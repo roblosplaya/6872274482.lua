@@ -1,3 +1,4 @@
+--This watermark is used to delete the file if its cached, remove it to make the file persist after commits.
 local GuiLibrary = shared.GuiLibrary
 local playersService = game:GetService("Players")
 local textService = game:GetService("TextService")
@@ -2238,13 +2239,13 @@ do
 	end)
 	local textlabel = Instance.new("TextLabel")
 	textlabel.Size = UDim2.new(1, 0, 0, 36)
-	textlabel.Text = "A Legend Has Been Reborned"
+	textlabel.Text = "A new discord has been created, click the icon to join."
 	textlabel.BackgroundTransparency = 1
 	textlabel.ZIndex = 10
 	textlabel.TextStrokeTransparency = 0
 	textlabel.TextScaled = true
-	textlabel.Font = Enum.Font.Arcade
-	textlabel.TextColor3 = Color3.new(0, 0, 0)
+	textlabel.Font = Enum.Font.SourceSans
+	textlabel.TextColor3 = Color3.new(1, 1, 1)
 	textlabel.Position = UDim2.new(0, 0, 1, -36)
 	textlabel.Parent = GuiLibrary.MainGui.ScaledGui.ClickGui
 end
@@ -3068,7 +3069,7 @@ runFunction(function()
 	FlySpeed = Fly.CreateSlider({
 		Name = "Speed",
 		Min = 1,
-		Max = 70,
+		Max = 23,
 		Function = function(val) end, 
 		Default = 23
 	})
@@ -3195,7 +3196,6 @@ runFunction(function()
 		Default = true
 	})
 end)
-
 
 runFunction(function()
 	local GrappleExploit = {Enabled = false}
@@ -3536,7 +3536,6 @@ runFunction(function()
 	local killauraanimationtween = {Enabled = false}
 	local killauracolor = {Value = 0.44}
 	local killauranovape = {Enabled = false}
-	local killaurascythe = {Enabled = true}
 	local killauratargethighlight = {Enabled = false}
 	local killaurarangecircle = {Enabled = false}
 	local killaurarangecirclepart
@@ -3548,7 +3547,6 @@ runFunction(function()
     local killauraplaying = false
     local oldViewmodelAnimation = function() end
     local oldPlaySound = function() end
-
     local originalArmC0 = nil
 	local killauracurrentanim
 	local animationdelay = tick()
@@ -3614,38 +3612,7 @@ runFunction(function()
 			{CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
 			{CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
 		},
-		Funny = {
-			{CFrame = CFrame.new(0.8, 10.7, 3.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.1},
-            {CFrame = CFrame.new(5.7, -1.7, 5.6) * CFrame.Angles(math.rad(-16), math.rad(60), math.rad(-80)), Time = 0.15},
-            {CFrame = CFrame.new(2.95, -5.06, -6.25) * CFrame.Angles(math.rad(-179), math.rad(61), math.rad(80)), Time = 0.15}
-		},
-		["Lunar Old"] = {
-			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		["Lunar New"] = {
-			{CFrame = CFrame.new(0.86, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.17},
-			{CFrame = CFrame.new(0.73, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.17}
-		},
-		["Lunar Fast"] = {
-			{CFrame = CFrame.new(0.95, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.40, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		["Liquid Bounce"] = {
-			{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(90), math.rad(-90)), Time = 0.45},
-    		{CFrame = CFrame.new(-0.01, -0.3, -1.01) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.45},
-			{CFrame = CFrame.new(-0.01, -0.3, 0.4) * CFrame.Angles(math.rad(-35), math.rad(70), math.rad(-90)), Time = 0.32}
-		},
-		["Auto Block"] = {
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(80), math.rad(65)), Time = 0.15},
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(110), math.rad(65)), Time = 0.15},
-			{CFrame = CFrame.new(-0.6, -0.2, 0.3) * CFrame.Angles(math.rad(0), math.rad(65), math.rad(65)), Time = 0.15}
-		},
-		Meteor = {
-			{CFrame = CFrame.new(0.150, -0.8, 0.1) * CFrame.Angles(math.rad(-45), math.rad(40), math.rad(-75)), Time = 0.15},
-			{CFrame = CFrame.new(0.02, -0.8, 0.05) * CFrame.Angles(math.rad(-60), math.rad(60), math.rad(-95)), Time = 0.15}
-		},
-		Switch = {
+		Latest = {
 			{CFrame = CFrame.new(0.69, -0.7, 0.1) * CFrame.Angles(math.rad(-65), math.rad(55), math.rad(-51)), Time = 0.1},
 			{CFrame = CFrame.new(0.16, -1.16, 0.5) * CFrame.Angles(math.rad(-179), math.rad(54), math.rad(33)), Time = 0.1}
 		},
@@ -3874,10 +3841,8 @@ runFunction(function()
 											if not killauraswing.Enabled then 
 												bedwars.SwordController:playSwordEffect(swordmeta, false)
 											end
-											if not killaurascythe.Enabled then
-												if swordmeta.displayName:find("Scythe") then 
-													bedwars.ScytheController:playLocalAnimation()
-												end
+											if swordmeta.displayName:find(" Scythe") then 
+												bedwars.ScytheController:playLocalAnimation()
 											end
 										end
 									end
@@ -3983,13 +3948,13 @@ runFunction(function()
     killaurarange = Killaura.CreateSlider({
         Name = "Attack range",
         Min = 1,
-        Max = 22,
+        Max = 18,
         Function = function(val) 
 			if killaurarangecirclepart then 
 				killaurarangecirclepart.Size = Vector3.new(val * 0.7, 0.01, val * 0.7)
 			end
 		end, 
-        Default = 22
+        Default = 18
     })
     killauraangle = Killaura.CreateSlider({
         Name = "Max angle",
@@ -4222,12 +4187,6 @@ runFunction(function()
         Function = function() end,
 		HoverText = "Only attacks when your sword is held."
     })
-	killaurascythe = Killaura.CreateToggle({
-		Name = "Scythe Animation",
-		Default = true,
-		HoverText = "Uses a custom animation for swinging using the Scythe",
-		Function = function() end
-	})
     killauraanimation = Killaura.CreateToggle({
         Name = "Custom Animation",
         Function = function(callback)
@@ -4246,19 +4205,18 @@ runFunction(function()
         Function = function() end,
 		HoverText = "Times animation with hit attempt"
     })
-	if not IgnoreVP then
-		killauranovape = Killaura.CreateToggle({
-			Name = 'No Vape',
-			Function = function() end,
-			HoverText = 'no hit vape user'
-		})
-		killauranovape.Object.Visible = false
-		task.spawn(function()
-			repeat task.wait() until WhitelistFunctions.Loaded
-			killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
-		end)
-	end
+	killauranovape = Killaura.CreateToggle({
+		Name = "No Vape",
+		Function = function() end,
+		HoverText = "no hit vape user"
+	})
+	killauranovape.Object.Visible = false
+	task.spawn(function()
+		repeat task.wait() until WhitelistFunctions.Loaded
+		killauranovape.Object.Visible = WhitelistFunctions.LocalPriority ~= 0
+	end)
 end)
+
 local LongJump = {Enabled = false}
 runFunction(function()
 	local damagetimer = 0
@@ -5026,7 +4984,7 @@ runFunction(function()
 	SpeedValue = Speed.CreateSlider({
 		Name = "Speed",
 		Min = 1,
-		Max = 50,
+		Max = 23,
 		Function = function(val) end,
 		Default = 23
 	})
@@ -7929,7 +7887,7 @@ runFunction(function()
 			local speedpotion = getItem("speed_potion")
 			if lplr.Character:GetAttribute("Health") <= (lplr.Character:GetAttribute("MaxHealth") - (100 - AutoConsumeHealth.Value)) then
 				autobankapple = true
-				local item = getItem("apple" , "orange")
+				local item = getItem("apple")
 				local pot = getItem("heal_splash_potion")
 				if (item or pot) and AutoConsumeDelay <= tick() then
 					if item then
@@ -8422,7 +8380,7 @@ runFunction(function()
 					for name,v in pairs(bedwars.ForgeConstants) do
 						if v == i then forgeType = name:lower() end
 					end
-					warningNotification("AutoForge", "Forging "..forgeType..".", bedwars.ForgeUtil.FORGE_DURATION_SEC)
+					warningNotification("AutoForge", "Purchasing "..forgeType..".", bedwars.ForgeUtil.FORGE_DURATION_SEC)
 				end
 				bedwars.ClientHandler:Get("ForgePurchaseUpgrade"):SendToServer(i)
 				task.wait(bedwars.ForgeUtil.FORGE_DURATION_SEC + 0.2)
@@ -8459,7 +8417,7 @@ runFunction(function()
 	AutoForgeWeapon = AutoForge.CreateDropdown({
 		Name = "Weapon",
 		Function = function() end,
-		List = {"Sword", "Dagger", "Scythe", "Great_Hammer", "Gaunlets"}
+		List = {"Sword", "Dagger", "Scythe", "Great_Hammer"}
 	})
 	AutoForgeArmor = AutoForge.CreateToggle({
 		Name = "Armor",
@@ -8903,7 +8861,6 @@ runFunction(function()
 		HoverText = "Drops items fast when you hold Q"
 	})
 end)
-
 
 runFunction(function()
 	local MissileTP = {Enabled = false}
@@ -9368,7 +9325,6 @@ runFunction(function()
 	})
 end)
 
-
 runFunction(function()
 	local oldenable2
 	local olddisable2
@@ -9590,9 +9546,9 @@ runFunction(function()
 	nukerrange = Nuker.CreateSlider({
 		Name = "Break range",
 		Min = 1, 
-		Max = 50, 
+		Max = 30, 
 		Function = function(val) end, 
-		Default = 50
+		Default = 30
 	})
 	nukerlegit = Nuker.CreateToggle({
 		Name = "Hand Check",
@@ -10397,5 +10353,3 @@ end)
 if lplr.UserId == 4943216782 then 
 	lplr:Kick('mfw, discord > vaperoblox')
 end
-
-
