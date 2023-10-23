@@ -10593,8 +10593,7 @@ runFunction(function()
         Name = "SemiMultiAura",
         Function = function(callback)
             if callback then
-                --credit to nebula ig
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/MakingFunnies.lua"))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/MakingFunnies.lua", true))()
             end
         end
     })
@@ -10606,8 +10605,7 @@ runFunction(function()
         Name = "VampireExploit",
         Function = function(callback)
             if callback then
-                --Dont u dare skid1!111!!
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua", true))()
             end
         end
     })
