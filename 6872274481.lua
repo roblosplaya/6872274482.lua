@@ -10563,7 +10563,7 @@ end
 
 
 
-print ("Thanks For Using Wizzware
+print ("Thanks For Using Wizzware")
 
 
 
