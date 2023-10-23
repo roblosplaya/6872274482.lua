@@ -10839,3 +10839,18 @@ runFunction(function()
 end)
 
 
+runFunction(function()
+    local AutoWinPanel = {Enabled = false}
+    AutoWinPanel = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
+        Name = "Auto Win (nebula was here)",
+        Function = function(callback)
+            if callback then
+                --// services
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/NebulawareConfig/Autowin/main/Autowin.lua"))()
+            end
+        end
+    })
+end)
+
+
+
