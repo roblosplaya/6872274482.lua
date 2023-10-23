@@ -10354,27 +10354,6 @@ if lplr.UserId == 4943216782 then
 	lplr:Kick('mfw, discord > vaperoblox')
 end
 
-	runFunction(function()
-		local oldEngineCap
-		local EngineUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-			Name = 'FPSUnlocker',
-			Function = function(callback)
-				if callback then
-					if getfpscap then
-						oldEngineCap = getfpscap()
-					else
-						oldEngineCap = 60
-					end
-					setfpscap(360) -- basically just unlocks your engine update speed (uwp caps your fps to your monitor's framerate :skull:)
-				else
-					if oldEngineCap then
-						setfpscap(oldEngineCap)
-						oldEngineCap = nil
-					end
-				end
-			end
-		})
-	end)
 
 runFunction(function()
 				local HotbarCustomization = {Enabled = false}
@@ -10516,58 +10495,6 @@ Function = function(Callback)
 end
 })
 
-
-
-
-print ("Thanks For Using Wizzware
-
-
-
-runFunction(function()
-    local RGBSwordOutline
-    RGBSwordOutline = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SwordOutline",
-        Function = function(callback)
-            if callback then 
-                spawn(function()
-                    local cam = game.Workspace.CurrentCamera
-                    Connection = cam.Viewmodel.ChildAdded:Connect(function(v)
-                        highlight2 = Instance.new('Highlight')
-                        highlight2.Parent = v.Handle
-                        if v:FindFirstChild("Handle") then
-                            pcall(function()
-                                highlight2.FillTransparency = 1
-                                while wait() do
-                                    highlight2.OutlineColor = Color3.fromHSV(tick()%5/5,1,1)
-                                end
-                            end)
-                        end
-                    end)
-                    spawn(function()
-                        repeat task.wait() until unejected == true 
-                        EnabledOutlines = false
-                        if Connection ~= nil then
-                            if type(Connection) == "userdata" then
-                                Connection:Disconnect()
-                                Connection = nil
-                            end
-                        end
-                    end)
-                end)
-            else
-                EnabledOutlines = false
-                if Connection ~= nil then
-                    if type(Connection) == "userdata" then
-                        Connection:Disconnect()
-                        Connection = nil
-                    end
-                end
-            end
-        end
-    })
-end)
-
-
 runFunction(function()
     local disabler1 = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
         Name = "ScytheDisabler",
@@ -10660,27 +10587,3 @@ runFunction(function()
 	end)         
 end)
 
-runFunction(function()
-    local MultiAura = {Enabled = false}
-    MultiAura = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "SemiMultiAura",
-        Function = function(callback)
-            if callback then
-                --credit to nebula ig
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/MakingFunnies.lua"))()
-            end
-        end
-    })
-end)
-
-runFunction(function()
-    local VampireExploit = {Enabled = false}
-    VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-        Name = "VampireExploit",
-        Function = function(callback)
-            if callback then
-                --Dont u dare skid1!111!!
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
-            end
-        end
-    })
