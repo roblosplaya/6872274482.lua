@@ -3069,9 +3069,9 @@ runFunction(function()
 	FlySpeed = Fly.CreateSlider({
 		Name = "Speed",
 		Min = 1,
-		Max = 80,
+		Max = 23,
 		Function = function(val) end, 
-		Default = 70
+		Default = 23
 	})
 	FlyVerticalSpeed = Fly.CreateSlider({
 		Name = "Vertical Speed",
@@ -4984,9 +4984,9 @@ runFunction(function()
 	SpeedValue = Speed.CreateSlider({
 		Name = "Speed",
 		Min = 1,
-		Max = 50,
+		Max = 23,
 		Function = function(val) end,
-		Default = 50
+		Default = 23
 	})
 	SpeedValueLarge = Speed.CreateSlider({
 		Name = "Big Mode Speed",
