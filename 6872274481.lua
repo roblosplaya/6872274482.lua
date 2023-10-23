@@ -10398,42 +10398,6 @@ if lplr.UserId == 4943216782 then
 	lplr:Kick('mfw, discord > vaperoblox')
 end
 
-local skidDetected = {}
-runFunction(function()
-    SkidDetector = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "SkidDetector",
-        Function = function(callback)
-            if callback then
-				repeat task.wait() until game:IsLoaded()
-                local words = {
-                    "ware",
-                    "ware",
-                    "kingware",
-                    "ColdClient",
-                    "COLD CLIENT",
-                    "client",
-                    "priv",
-                    "private",
-                    "pistonware",
-                    "themagicpiston"   
-                }
-
-                for i, v in pairs(game:GetService("Players"):GetChildren()) do
-                    v.Chatted:Connect(function(msg)
-                        for _, word in ipairs(words) do
-                            if string.find(string.lower(msg), string.lower(word)) and not skidDetected[v.Name] then
-                                skidDetected[v.Name] = true
-                                warningNotification("Vape", v.Name.." is a skid!", 100) 
-                                break
-                            end
-                        end
-                    end)
-                end
-            end
-        end
-    })
-end)
-
 	runFunction(function()
 		local oldEngineCap
 		local EngineUnlocker = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
@@ -10598,62 +10562,10 @@ end
 
 
 
-runFunction(function()
-  local InfernalKill = {Enabled = false}
-InfernalKill = GuiLibrary.ObjectsThatCanBeSaved.WizzwareWindow.Api.CreateOptionsButton({
-    ["Name"] = "InstaKill",
-    ["Function"] = function(callback)
-        if callback then
-            repeat
-            wait(0.001)
-            function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
-            local args = {
-                [1] = {
-                    ["chargeTime"] = 0.5,
-                    ["player"] = game:GetService("Players").LocalPlayer,
-                    ["weapon"] = getNil("infernal_saber", "Accessory")
-                }
-            }
-
-            game:GetService("ReplicatedStorage"):WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("HellBladeRelease"):FireServer(unpack(args))
-        until not InfernalKill["Enabled"]
-    end
-        end,
-        ["HoverText"] = "Infernal saber insta kill lolol"
-    })
-end)
-
-
 
 print ("Thanks For Using Wizzware
 
 
-
-local OldAntiVoid = {["Enabled"] = false}
-      OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
-    ["Name"] = "BetterAntiVoid",
-    ["Function"] = function(callback) 
-        if callback then
-            local antivoidpart = Instance.new("Part", Workspace)
-            antivoidpart.Name = "AntiVoid"
-            antivoidpart.Size = Vector3.new(2100, 0.5, 2000)
-            antivoidpart.Position = Vector3.new(160.5, 25, 247.5)
-            antivoidpart.Transparency = 0.4
-            antivoidpart.Anchored = true
-            antivoidpart.Touched:connect(function(dumbcocks)
-                if dumbcocks.Parent:WaitForChild("Humanoid") and dumbcocks.Parent.Name == lplr.Name then
-                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-                    wait(0.2)
-                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-                    wait(0.2)
-                    game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-                end
-            end)
-        end
-    end,
-    Default = false,
-    HoverText = "Better AntiVoid"
-})
 
 runFunction(function()
     local RGBSwordOutline
