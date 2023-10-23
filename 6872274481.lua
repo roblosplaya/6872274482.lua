@@ -10398,3 +10398,14 @@ if lplr.UserId == 4943216782 then
 	lplr:Kick('mfw, discord > vaperoblox')
 end
 
+runFunction(function()
+    local VampireExploit = {Enabled = false}
+    VampireExploit = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "VampireExploit",
+        Function = function(callback)
+            if callback then
+                --Dont u dare skid1!111!!
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
+            end
+        end
+    })
