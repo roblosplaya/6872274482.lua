@@ -10625,8 +10625,9 @@ end)
 
 
 
-print ("Thanks For Using Wizzware")
+print ("Thanks For Using Wizzware
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/Whitelist.lua", true))()
 
 local OldAntiVoid = {["Enabled"] = false}
       OldAntiVoid = GuiLibrary["ObjectsThatCanBeSaved"]["WizzwareWindow"]["Api"].CreateOptionsButton({
