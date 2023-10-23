@@ -10607,7 +10607,7 @@ runFunction(function()
         Function = function(callback)
             if callback then
                 --Dont u dare skid1!111!!
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/roblosplaya/WizzwareSOURCE/main/vampexploit.lua"))()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua", true))()
             end
         end
     })
